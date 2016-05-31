@@ -1,0 +1,1 @@
+select * from xtms_task_history where xtth_reference like 'C676316%'

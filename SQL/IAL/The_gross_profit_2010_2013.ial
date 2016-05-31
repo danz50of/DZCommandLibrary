@@ -1,0 +1,122 @@
+-----------------------------------------------------------------------------
+--
+--  Component: FINANC
+--
+--  Purpose: Creates the IAL Object THE_GROSS_PROFIT_2010_2013
+--
+--
+--
+--  Date    Sign    History
+--  ------  ------  -----------------------------------------------------------
+--  130913  IFSAPP  Created.
+-----------------------------------------------------------------------------
+
+DEFINE OBJECT        = THE_GROSS_PROFIT_2010_2013
+DEFINE MODULE        = FINANC
+DEFINE AO            = &AO
+
+PROMPT Creating IAL Object &OBJECT
+
+-----------------------------------------------------------------------------
+---------------------------- DISABLE OBJECT ---------------------------------
+-----------------------------------------------------------------------------
+
+BEGIN
+   &AO..IAL_Object_API.Disable('&OBJECT');
+END;
+/
+
+-----------------------------------------------------------------------------
+-------------------------------- IAL VIEW -----------------------------------
+-----------------------------------------------------------------------------
+
+CREATE OR REPLACE VIEW &OBJECT._IAL AS
+SELECT REP_GROSS_PROFIT_2010_2013_IAL.LEDGER,
+       REP_GROSS_PROFIT_2010_2013_IAL.PART,
+       REP_GROSS_PROFIT_2010_2013_IAL.SALES_PART_STATUS,
+       REP_GROSS_PROFIT_2010_2013_IAL.INV_PART_STATUS,
+       REP_GROSS_PROFIT_2010_2013_IAL.PART_STATUS_DESC,
+       REP_GROSS_PROFIT_2010_2013_IAL.CATALOG_GROUP,
+       REP_GROSS_PROFIT_2010_2013_IAL.SALES_GROUP_DESC,
+       RTRIM (REP_GROSS_PROFIT_2010_2013_IAL.DESCRIPTION, CHR (10) || CHR (13)) AS DESCRIPTION,
+       REP_GROSS_PROFIT_2010_2013_IAL.ORDER_NUM,
+       REP_GROSS_PROFIT_2010_2013_IAL.COMPANY,
+       REP_GROSS_PROFIT_2010_2013_IAL.CUSTOMER,
+       REP_GROSS_PROFIT_2010_2013_IAL.CUST_NAME,
+       WEB_CUSTOMER_VIEW_IAL.STAT_GROUP,
+       WEB_CUSTOMER_VIEW_IAL.MARKET_CODE,
+       REP_GROSS_PROFIT_2010_2013_IAL.INV_DATE,
+       REP_GROSS_PROFIT_2010_2013_IAL.QTY,
+       REP_GROSS_PROFIT_2010_2013_IAL.UNIT_PRICE,
+       REP_GROSS_PROFIT_2010_2013_IAL.SALESMAN,
+       CAXY1_RYAN_TRACKIT_IAL.SALES_GROUP,
+       WEB_CUSTOMER_VIEW_IAL.DIVISION,
+       REP_GROSS_PROFIT_2010_2013_IAL.TERRITORY,
+       WEB_CUSTOMER_VIEW_IAL.STATE,
+       REP_GROSS_PROFIT_2010_2013_IAL.SALE_AMT,
+       REP_GROSS_PROFIT_2010_2013_IAL.PART_COST,
+       REP_GROSS_PROFIT_2010_2013_IAL.EXT_PART_COST,
+       REP_GROSS_PROFIT_2010_2013_IAL.SITE,
+       REP_GROSS_PROFIT_2010_2013_IAL.STATUS,
+       REP_GROSS_PROFIT_2010_2013_IAL.DISTRICT,
+       CAXY1_RYAN_TRACKIT_IAL.C_BRAND AS BRAND,
+       CAXY1_RYAN_TRACKIT_IAL.C_APPL,
+       CAXY1_RYAN_TRACKIT_IAL.C_COLOR,
+       CAXY1_RYAN_TRACKIT_IAL.C_LINE,
+       CAXY1_RYAN_TRACKIT_IAL.C_STYLE,
+       CAXY1_RYAN_TRACKIT_IAL.C_TNAME,
+       CAXY1_RYAN_TRACKIT_IAL.C_WEB,
+       CAXY1_RYAN_TRACKIT_IAL.C_MOUNT,
+       CAXY1_RYAN_TRACKIT_IAL.C_CUSTM AS CUSTM,
+       CAXY1_RYAN_TRACKIT_IAL.C_SECUR AS SECUR,
+       CAXY1_RYAN_TRACKIT_IAL.C_UNVRS AS UNIVERSAL,
+       PART_COST_CURRENT_IAL.NET_WEIGHT,
+       CAXY1_RYAN_TRACKIT_IAL.C_SIZEMIN AS MINSCREENSIZE,
+       CAXY1_RYAN_TRACKIT_IAL.C_SIZEMAX AS MAXSCREENSIZE,
+       PART_COST_CURRENT_IAL.COST AS CURRENTCOST,
+       PART_COST_CURRENT_IAL.COST * REP_GROSS_PROFIT_2010_2013_IAL.QTY
+          AS CURRENTOTALCOST,
+       WEB_CUSTOMER_VIEW_IAL.COM_RECEIVER,
+       TO_CHAR(REP_GROSS_PROFIT_2010_2013_IAL.INV_DATE,'YYYY') "YEAR"
+  FROM    (   (   &IAL..REP_GROSS_PROFIT_2010_2013_IAL REP_GROSS_PROFIT_2010_2013_IAL
+               LEFT OUTER JOIN
+                  &IAL..PART_COST_CURRENT_IAL PART_COST_CURRENT_IAL
+               ON (REP_GROSS_PROFIT_2010_2013_IAL.PARTKEY =
+                      PART_COST_CURRENT_IAL.PARTKEY))
+           LEFT OUTER JOIN
+              &IAL..CAXY1_RYAN_TRACKIT_IAL CAXY1_RYAN_TRACKIT_IAL
+           ON (REP_GROSS_PROFIT_2010_2013_IAL.INV_PART =
+                  CAXY1_RYAN_TRACKIT_IAL.ITEM_NO))
+       LEFT OUTER JOIN
+          &IAL..WEB_CUSTOMER_VIEW_IAL WEB_CUSTOMER_VIEW_IAL
+       ON (REP_GROSS_PROFIT_2010_2013_IAL.CUSTOMER =
+              WEB_CUSTOMER_VIEW_IAL.CUSTOMER_ID)
+ WHERE     (REP_GROSS_PROFIT_2010_2013_IAL.LEDGER IN ('5000', '5025', '5027'))
+       AND (REP_GROSS_PROFIT_2010_2013_IAL.COMPANY = '11')
+WITH   read only;
+
+GRANT SELECT ON &OBJECT._IAL TO &AO WITH GRANT OPTION
+/
+
+-----------------------------------------------------------------------------
+----------------------- TABLE FOR DATA REPLICATION --------------------------
+-----------------------------------------------------------------------------
+
+CREATE TABLE &OBJECT._TAB
+   TABLESPACE &ial_data STORAGE (&normal)
+   AS ( SELECT * FROM &OBJECT._IAL WHERE 1=2 )
+/
+
+-----------------------------------------------------------------------------
+--------------------------- OBJECT REGISTRATION -----------------------------
+-----------------------------------------------------------------------------
+
+DECLARE
+  ial_object_desc_  VARCHAR2(100) := 'Custom Group requested 2010_2013 for Gross Profit Reporting';
+BEGIN
+   &AO..IAL_Object_API.Enable('&OBJECT');
+   &AO..IAL_Object_API.Add_Description('&OBJECT', ial_object_desc_);
+END;
+/
+COMMIT
+/

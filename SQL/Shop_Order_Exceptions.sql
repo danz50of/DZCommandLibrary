@@ -1,0 +1,1 @@
+select distinct run_time_code, run_time_code_db from ifsapp.shop_order_operation
