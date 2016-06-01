@@ -1,0 +1,11 @@
+CONTRACT = 'MP' and STATE = 'Planned' and LATEST_ORDER_DATE<=(SYSDATE+7) and 
+( DECODE(PART_NO,NULL,STAT_GRP,Purchase_Part_Api.Get_Stat_Grp(contract,part_no)) = 'CRT' or 
+DECODE(PART_NO,NULL,STAT_GRP,Purchase_Part_Api.Get_Stat_Grp(contract,part_no)) = 'FPK' or 
+DECODE(PART_NO,NULL,STAT_GRP,Purchase_Part_Api.Get_Stat_Grp(contract,part_no)) = 'FCT' or 
+DECODE(PART_NO,NULL,STAT_GRP,Purchase_Part_Api.Get_Stat_Grp(contract,part_no)) = 'PPP' or 
+DECODE(PART_NO,NULL,STAT_GRP,Purchase_Part_Api.Get_Stat_Grp(contract,part_no)) = 'PPF' or 
+DECODE(PART_NO,NULL,STAT_GRP,Purchase_Part_Api.Get_Stat_Grp(contract,part_no)) = 'PPS' ) 
+and ( Inventory_Part_API.Get_Planner_Buyer(CONTRACT, PART_NO)!='L' and 
+Inventory_Part_API.Get_Planner_Buyer(CONTRACT, PART_NO)!='INT_MPS' and 
+Inventory_Part_API.Get_Planner_Buyer(CONTRACT, PART_NO)!='INT_COMP' ) and 
+((DEMAND_CODE_DB = ( select ORDER_SUPPLY_TYPE_API.Encode( 'Invent Order' ) from dual )) or   (DEMAND_CODE_DB = ( select ORDER_SUPPLY_TYPE_API.Encode( 'Project Inventory' ) from dual )) )

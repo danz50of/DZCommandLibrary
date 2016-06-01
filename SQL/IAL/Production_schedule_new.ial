@@ -1,0 +1,68 @@
+-----------------------------------------------------------------------------
+--
+--  Component: INVENT
+--
+--  Purpose: Creates the IAL Object PRODUCTION_SCHEDULE_NEW
+--
+--
+--
+--  Date    Sign    History
+--  ------  ------  -----------------------------------------------------------
+--  040929  IFSAPP  Created.
+-----------------------------------------------------------------------------
+
+DEFINE OBJECT        = PRODUCTION_SCHEDULE_NEW
+DEFINE MODULE        = INVENT
+DEFINE AO            = &AO
+
+PROMPT Creating IAL Object &OBJECT
+
+-----------------------------------------------------------------------------
+---------------------------- DISABLE OBJECT ---------------------------------
+-----------------------------------------------------------------------------
+
+BEGIN
+   &AO..IAL_Object_API.Disable('&OBJECT');
+END;
+/
+
+-----------------------------------------------------------------------------
+-------------------------------- IAL VIEW -----------------------------------
+-----------------------------------------------------------------------------
+
+CREATE OR REPLACE VIEW &OBJECT._IAL AS
+SELECT contract,
+part_no,
+order_no,
+line_no,
+substr(&ao..inventory_part_api.get_description(contract, part_no),1,40) Description,
+       date_required,
+ qty_demand,
+order_supply_demand_type,
+ substr(&ao..manuf_part_attribute_api.Get_Process_Type(contract, part_no),1,20) Process_Type,
+       &ao..Inventory_Part_Location_API.Get_Plannable_Qty_Onhand(Contract, Part_No) Qty_Onhand
+FROM &ao..ORDER_SUPPLY_DEMAND_SCHED
+WHERE &ao..manuf_part_attribute_api.Get_Process_Type(contract, part_no) IS NOT NULL
+AND  order_supply_demand_type != 'Spare part forecast'
+WITH   read only;
+
+GRANT SELECT ON &OBJECT._IAL TO &AO WITH GRANT OPTION
+/
+
+-----------------------------------------------------------------------------
+----------------------- TABLE FOR DATA REPLICATION --------------------------
+-----------------------------------------------------------------------------
+
+CREATE TABLE &OBJECT._TAB
+   TABLESPACE &ial_data STORAGE (&normal)
+   AS ( SELECT * FROM &OBJECT._IAL WHERE 1=2 )
+/
+
+-----------------------------------------------------------------------------
+--------------------------- OBJECT REGISTRATION -----------------------------
+-----------------------------------------------------------------------------
+
+BEGIN
+   &AO..IAL_Object_API.Enable('&OBJECT');
+END;
+/

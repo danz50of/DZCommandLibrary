@@ -1,0 +1,142 @@
+select a.contract, a.top_level_part_no, a.part_no, a.cost_set,
+b.routing_revision, b.create_date, b.operation_no, b.operation_description,
+b.phase_in_date, b.labor_run_factor, b.labor_setup_time, b.crew_size,
+b.work_center_no, b.labor_class_no
+from ifsapp.part_cost_bucket a, ifsinfo.prl_capacity_routing b
+where A.PART_NO = 'ST632'  AND
+b.part_no = a.part_no
+and b.contract = a.contract
+and a.cost_set = 1 and a.cost_bucket_id = '200'
+
+
+select * from ifsinfo.prl_forecast_6months_ial WHERE PART_NO = 'ST632'
+
+
+select A.PART_NO, a.top_level_part_no, A.WORK_CENTER_NO, A.CREW_SIZE, A.LABOR_RUN_FACTOR, 
+A.LABOR_SETUP_TIME, A.QTY_PER_ASSEMBLY
+, sum(B.FORECAST_CURR) MONTHLY_FORECAST_CURR
+, sum(B.FORECAST_1) MONTHLY_FORECAST_1
+, sum(B.FORECAST_2) MONTHLY_FORECAST_2
+, sum(B.FORECAST_3) MONTHLY_FORECAST_3
+, sum(B.FORECAST_4) MONTHLY_FORECAST_4
+, sum(B.FORECAST_5) MONTHLY_FORECAST_5
+, sum(B.FORECAST_6) MONTHLY_FORECAST_6
+from ifsinfo.prl_rsc_expl A,
+     IFSINFO.PRL_FORECAST_6MONTHS B 
+where 
+--TOP_LEVEL_PART_NO = 'ST632' AND
+--work_center_no = 'MW1' and
+B.PART_NO = A.TOP_LEVEL_PART_NO
+AND B.CONTRACT = A.CONTRACT
+group by A.PART_NO, a.top_level_part_no, A.WORK_CENTER_NO, A.CREW_SIZE, A.LABOR_RUN_FACTOR, 
+A.LABOR_SETUP_TIME, A.QTY_PER_ASSEMBLY
+
+
+
+select * from ifsinfo.prl_rsc_expl where top_level_part_no LIKE 'PM600%'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select * from ifsapp.forecast_day where part_no = 'ST632' and start_date between to_date('1/1/2009','mm/dd/yyyy')
+and to_date('1/1/2010','mm/dd/yyyy') ORDER BY START_DATE
+
+
+
+
+
+
+
+
+select CONTRACT, PART_NO, FORECAST FORECAST_CURR, NULL FORECAST_1, NULL FORECAST_2, 
+NULL FORECAST_3, NULL FORECAST_4, NULL FORECAST_5, NULL FORECAST_6 
+from &AO..forecast_day 
+WHERE CONTRACT = 'MP' AND TRUNC(START_DATE,'MM') = TRUNC(SYSDATE,'MM') 
+UNION
+select CONTRACT, PART_NO, NULL FORECAST_CURR, FORECAST FORECAST_1, NULL FORECAST_2, 
+NULL FORECAST_3, NULL FORECAST_4, NULL FORECAST_5, NULL FORECAST_6 
+from &AO..forecast_day 
+WHERE CONTRACT = 'MP' AND TRUNC(START_DATE,'MM') = TRUNC(ADD_MONTHS(SYSDATE, 1),'MM')
+UNION
+select CONTRACT, PART_NO, NULL FORECAST_CURR, NULL FORECAST_1, FORECAST FORECAST_2, 
+NULL FORECAST_3, NULL FORECAST_4, NULL FORECAST_5, NULL FORECAST_6 
+from &AO..forecast_day 
+WHERE CONTRACT = 'MP' AND TRUNC(START_DATE,'MM') = TRUNC(ADD_MONTHS(SYSDATE, 2),'MM')
+UNION
+select CONTRACT, PART_NO, NULL FORECAST_CURR, NULL FORECAST_1, NULL FORECAST_2, 
+FORECAST FORECAST_3, NULL FORECAST_4, NULL FORECAST_5, NULL FORECAST_6 
+from &AO..forecast_day 
+WHERE CONTRACT = 'MP' AND TRUNC(START_DATE,'MM') = TRUNC(ADD_MONTHS(SYSDATE, 3),'MM')
+UNION
+select CONTRACT, PART_NO, NULL FORECAST_CURR, NULL FORECAST_1, NULL FORECAST_2, 
+NULL FORECAST_3, FORECAST FORECAST_4, NULL FORECAST_5, NULL FORECAST_6 
+from &AO..forecast_day 
+WHERE CONTRACT = 'MP' AND TRUNC(START_DATE,'MM') = TRUNC(ADD_MONTHS(SYSDATE, 4),'MM')
+UNION
+select CONTRACT, PART_NO, NULL FORECAST_CURR, NULL FORECAST_1, NULL FORECAST_2, 
+NULL FORECAST_3, NULL FORECAST_4, FORECAST FORECAST_5, NULL FORECAST_6 
+from &AO..forecast_day 
+WHERE CONTRACT = 'MP' AND TRUNC(START_DATE,'MM') = TRUNC(ADD_MONTHS(SYSDATE, 5),'MM')
+UNION
+select CONTRACT, PART_NO, NULL FORECAST_CURR, NULL FORECAST_1, NULL FORECAST_2, 
+NULL FORECAST_3, NULL FORECAST_4, NULL FORECAST_5, FORECAST FORECAST_6 
+from &AO..forecast_day 
+WHERE CONTRACT = 'MP' AND TRUNC(START_DATE,'MM') = TRUNC(ADD_MONTHS(SYSDATE, 6),'MM')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT * FROM IFSINFO.PRL_RRP_FORECAST_IAL
