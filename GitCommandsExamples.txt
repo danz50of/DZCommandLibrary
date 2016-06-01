@@ -16,6 +16,7 @@
 
 This document will list out scenarios and git command applications.
 
+<<<<<<< HEAD
 
 **Scenario -- Start a new local branch
 
@@ -37,3 +38,7 @@ the old branch.
 To clean up the local branches, first do a pull from git using --prune
 
 ##       Need to work out process
+=======
+**Scenario -- End of shift checkin**
+
+**Scenario -- Clean Up Branches on Local Machine**
