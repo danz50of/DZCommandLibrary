@@ -1,0 +1,21 @@
+*************************************************************************************
+*																					*
+*  Author:  Dan Zabinski															*
+*    File:  GitCommandsExample.txt													*
+* Purpose:  To Document and list code examples when working with a git repository   *
+*     Git:  https://github.com/danz50of/DZCommandLibrary                            *
+* Created:  5/31/2016																*
+* Updated:  5/31/2016																*
+*																					*
+*************************************************************************************
+*																					*
+*	Author:			Date Changed: 		Change Description							*
+*	DAZ				5/31/2016			Initial Add to Repo							*
+*																					*
+*************************************************************************************
+
+This document will list out scenarios and git command applications.
+
+**Scenario -- End of shift checkin**
+
+**Scenario -- Clean Up Branches on Local Machine**
