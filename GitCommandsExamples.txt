@@ -16,6 +16,29 @@
 
 This document will list out scenarios and git command applications.
 
+<<<<<<< HEAD
+
+**Scenario -- Start a new local branch
+
+##git checkout -b {BranchName}
+This will check out what is being worked on and create a new local branch.
+This alone will only create a local branch.  the Local branch must be pushed to the
+main git repo.
+##git push origin {BranchName}
+
+**Scenario -- End of shift checkin**
+
+
+**Scenario -- Clean Up Branches on Local Machine**
+
+After a merge to origin -- master, local repo's should be kept clean and ensync.
+If there has been a merge and squash, the local repo should be updated by deleting
+the old branch.
+
+To clean up the local branches, first do a pull from git using --prune
+
+##       Need to work out process
+=======
 **Scenario -- End of shift checkin**
 
 **Scenario -- Clean Up Branches on Local Machine**
