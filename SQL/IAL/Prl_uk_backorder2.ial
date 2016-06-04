@@ -1,0 +1,180 @@
+-----------------------------------------------------------------------------
+--
+--  Component: 122211
+--
+--  Purpose: Creates the IAL Object PRL_UK_BACKORDER2
+--
+--
+--
+--  Date    Sign    History
+--  ------  ------  -----------------------------------------------------------
+--  111222  IFSAPP  Created.
+-----------------------------------------------------------------------------
+
+DEFINE OBJECT        = PRL_UK_BACKORDER2
+DEFINE MODULE        = 122211
+DEFINE AO            = &AO
+
+PROMPT Creating IAL Object &OBJECT
+
+-----------------------------------------------------------------------------
+---------------------------- DISABLE OBJECT ---------------------------------
+-----------------------------------------------------------------------------
+
+BEGIN
+   &AO..IAL_Object_API.Disable('&OBJECT');
+END;
+/
+
+-----------------------------------------------------------------------------
+-------------------------------- IAL VIEW -----------------------------------
+-----------------------------------------------------------------------------
+
+CREATE OR REPLACE VIEW &OBJECT._IAL AS
+SELECT   PART_NO,
+            DESCR,
+            SUPPLIER_NAME,
+            CREATED,
+            ON_HAND,
+            ACCT_GRP,
+            STATUS,
+            PART_TYPE,
+            SALES_GRP,
+            PROD_CODE,
+            PROD_FAM,
+            STD_COST,
+            QTY_USAGE,
+            AVRG_USAGE,
+            MON_10,
+            MON_11,
+            MON_12,
+            NVL (OPEN_CUSTOMER_ORDER, 0) OPEN_CUSTOMER_ORDER,
+            NVL (QTY_ON_HAND, 0) QTY_ON_HAND,
+            NVL (QTY_AVAILABLE, 0) QTY_AVAILABLE,
+            NVL (QTY_RESERVED, 0) QTY_RESERVED,
+            NVL (
+               (CASE
+                   WHEN ((OPEN_CUSTOMER_ORDER - QTY_RESERVED) - QTY_AVAILABLE) <= 0 THEN 0
+                   ELSE ((OPEN_CUSTOMER_ORDER - QTY_RESERVED) - QTY_AVAILABLE)
+                END),
+               0
+            )
+               BACKORDER_QTY,
+            NVL (OPEN_SUPPLIER_QTY, 0) OPEN_PO_QTY,
+            (CASE 
+                WHEN AVRG_USAGE <> 0 THEN  
+                ((QTY_AVAILABLE - NVL (OPEN_CUSTOMER_ORDER, 0)))
+                 / (AVRG_USAGE)
+                ELSE 0.00 END)
+               MO_ONHAND_AVERAGE,
+            (CASE 
+                WHEN AVRG_USAGE <> 0 THEN  
+                ((QTY_AVAILABLE + NVL (OPEN_SUPPLIER_QTY,0)))
+                 / (AVRG_USAGE)
+        ELSE 0.00 END)
+               MO_ONHAND_CURRENT_PUR_ORDERS,
+(CASE 
+             WHEN AVRG_USAGE <> 0 THEN  
+              ((QTY_AVAILABLE - NVL (OPEN_CUSTOMER_ORDER, 0)))
+               + NVL (OPEN_SUPPLIER_QTY,0)
+                 / (AVRG_USAGE)
+      ELSE 0.00 END)
+             MO_ONHAND_WITH_CUST_ORDERS
+     FROM   (SELECT   a.part_no,
+                      b.description Descr,
+                      --IFSAPP.PRL_GET_PRIMARY_VENDOR ('BBG', b.CATALOG_no)
+                        -- VENDOR_NO,
+                      IFSAPP.SUPPLIER_API.GET_VENDOR_NAME (
+                         IFSAPP.PRL_GET_PRIMARY_VENDOR ('BBG', b.part_no)) supplier_name,
+                      TO_CHAR (b.create_date, 'dd/mm/yyyy') Created,
+                      NVL (
+                         ifsapp.get_qty_onhand_all_loc (a.contract,
+                                                        a.part_no),
+                         0
+                      )
+                         On_Hand,
+                      b.accounting_group Acct_Grp,
+                      b.part_status Status,
+                      b.type_code Part_Type,
+                      c.catalog_group Sales_Grp,
+                      b.part_product_code Prod_Code,
+                      b.part_product_family Prod_Fam,
+                      ROUND (ifsapp.get_part_cost (a.contract, a.part_no), 4)
+                         Std_Cost,
+                      a.mon_34 + a.mon_35 + a.mon_36 Qty_Usage,
+                      ROUND ( (a.mon_34 + a.mon_35 + a.mon_36) / 3, 2)
+                         Avrg_Usage,
+                      a.mon_34 mon_10,
+                      a.mon_35 mon_11,
+                      a.mon_36 mon_12,
+                      (SELECT   SUM (QTY_DEMAND)
+                         FROM   IFSAPP.ORDER_SUPPLY_DEMAND_EXT SUP_EXT
+                        WHERE   SUP_EXT.PART_NO = A.PART_NO
+                                AND SUP_EXT.CONTRACT = B.CONTRACT)
+                         OPEN_CUSTOMER_ORDER,
+                      IFSAPP.INVENTORY_PART_IN_STOCK_API.Get_Inventory_Qty_Onhand (
+                         'BBG',
+                         A.PART_NO,
+                         '*'
+                      )
+                         QTY_ON_HAND,
+                      IFSAPP.INVENTORY_PART_IN_STOCK_API.Get_Inventory_Qty_Onhand (
+                         B.CONTRACT,
+                         A.PART_NO,
+                         NULL
+                      )
+                      - IFSAPP.inventory_part_in_stock_api.Get_Sales_Plannable_Qty_Res (
+                           B.CONTRACT,
+                           A.PART_NO,
+                           '*'
+                        )
+                      - IFSAPP.inventory_part_in_stock_api.Get_Qty_In_Quality_Control (
+                           B.CONTRACT,
+                           A.PART_NO,
+                           '*'
+                        )
+                         QTY_AVAILABLE,
+                         (SELECT SUM(QTY_RESERVED) FROM IFSAPP.INVENTORY_PART_IN_STOCK INST WHERE INST.PART_NO = B.PART_NO AND INST.CONTRACT = B.CONTRACT
+                            GROUP BY INST.PART_NO) QTY_RESERVED,
+                      --       IFSAPP.MPS_GET_AVAILABLE_UK(A.PART_NO) QTY_AVAILABLE,
+                      NULL BACKORDER_QTY,
+                      (SELECT   SUM (QTY_SUPPLY)
+                         FROM   IFSAPP.ORDER_SUPPLY_DEMAND_EXT SUP_EXT
+                        WHERE   SUP_EXT.PART_NO = A.PART_NO
+                                AND SUP_EXT.CONTRACT = B.CONTRACT)
+                         OPEN_SUPPLIER_QTY,
+                      --NULL QTY_RESERVED,
+                      NULL MO_ONHAND_AVERAGE,
+                      NULL MO_ONHAND_WITH_CURRENT_ORDERS
+               FROM   ifsinfo.run_rate_3year a,
+                      ifsapp.inventory_part b,
+                      ifsapp.sales_part c
+              WHERE       a.contract = 'BBG'
+                      AND a.part_no = b.part_no
+                      AND a.contract = b.contract
+                      AND a.part_no = c.catalog_no(+)
+                      AND a.contract = c.contract(+))
+WITH   read only;
+
+GRANT SELECT ON &OBJECT._IAL TO &AO WITH GRANT OPTION
+/
+
+-----------------------------------------------------------------------------
+----------------------- TABLE FOR DATA REPLICATION --------------------------
+-----------------------------------------------------------------------------
+
+CREATE TABLE &OBJECT._TAB
+   TABLESPACE &ial_data STORAGE (&normal)
+   AS ( SELECT * FROM &OBJECT._IAL WHERE 1=2 )
+/
+
+-----------------------------------------------------------------------------
+--------------------------- OBJECT REGISTRATION -----------------------------
+-----------------------------------------------------------------------------
+
+BEGIN
+   &AO..IAL_Object_API.Enable('&OBJECT');
+END;
+/
+COMMIT
+/

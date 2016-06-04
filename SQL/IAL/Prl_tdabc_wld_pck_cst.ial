@@ -1,0 +1,86 @@
+-----------------------------------------------------------------------------
+--
+--  Component: 71111
+--
+--  Purpose: Creates the IAL Object PRL_TDABC_WLD_PCK_CST
+--
+--
+--
+--  Date    Sign    History
+--  ------  ------  -----------------------------------------------------------
+--  110711  IFSAPP  Created.
+-----------------------------------------------------------------------------
+
+DEFINE OBJECT        = PRL_TDABC_WLD_PCK_CST
+DEFINE MODULE        = 71111
+DEFINE AO            = &AO
+
+PROMPT Creating IAL Object &OBJECT
+
+-----------------------------------------------------------------------------
+---------------------------- DISABLE OBJECT ---------------------------------
+-----------------------------------------------------------------------------
+
+BEGIN
+   &AO..IAL_Object_API.Disable('&OBJECT');
+END;
+/
+
+-----------------------------------------------------------------------------
+-------------------------------- IAL VIEW -----------------------------------
+-----------------------------------------------------------------------------
+
+CREATE OR REPLACE VIEW &OBJECT._IAL AS
+select STUPALL.ORDER_NO, STUPALL.PART_NO, TRUNC(STUPALL.DATED,'DD') DATED,  
+(select b.state from ifsinfo.started_shop_orders b where  STUPALL.order_no = b.order_no) Order_State,
+(select c.date_entered from ifsinfo.started_shop_orders c where  STUPALL.order_no = c.order_no) Order_Entered,
+(select d.org_start_date from ifsinfo.started_shop_orders d where  STUPALL.order_no = d.order_no) Org_Start_Date,
+(select e.revised_start_date from ifsinfo.started_shop_orders e where  STUPALL.order_no = e.order_no) Revised_Start_Date,
+(select f.earliest_start_date from ifsinfo.started_shop_orders f where  STUPALL.order_no = f.order_no) 
+Earliest_Start_Date,
+STUPALL.QUANTITY SO_QTY, STUPALL.WORK_CENTER_NO,
+STUPALL.CREW_SIZE, STUPALL.LABOR_CLASS_NO, STUPALL.OPERATION_NO,
+STUPALL.OPERATION_DESCRIPTION, STUPALL.LABOR_RUN_FACTOR, 
+STUPALL.LABOR_SETUP_TIME,mach_run_factor,mach_setup_time
+from ifsinfo.PRL_CAPACITY_OORECSTD STUPALL 
+WHERE LABOR_CLASS_NO in ('WELDING','PACKLINE','DIE CAST','CAST','TRIM','WELD ROBOT','SETUP CAST','SANDING','MACH','ZINC CAST')
+and UPPER((select b.state from ifsinfo.started_shop_orders b where  STUPALL.order_no = b.order_no)) = 'STARTED'
+UNION
+select STUPALL1.ORDER_NO, STUPALL1.PART_NO, TRUNC(STUPALL1.DATED,'DD') DATED,  
+(select b.state from ifsinfo.started_shop_orders b where  STUPALL1.order_no = b.order_no) Order_State,
+(select c.date_entered from ifsinfo.started_shop_orders c where  STUPALL1.order_no = c.order_no) Order_Entered,
+(select d.org_start_date from ifsinfo.started_shop_orders d where  STUPALL1.order_no = d.order_no) Org_Start_Date,
+(select e.revised_start_date from ifsinfo.started_shop_orders e where  STUPALL1.order_no = e.order_no) Revised_Start_Date,
+(select f.earliest_start_date from ifsinfo.started_shop_orders f where  STUPALL1.order_no = f.order_no) 
+Earliest_Start_Date,
+STUPALL1.QUANTITY SO_QTY, STUPALL1.WORK_CENTER_NO,
+STUPALL1.CREW_SIZE, STUPALL1.LABOR_CLASS_NO, STUPALL1.OPERATION_NO,
+STUPALL1.OPERATION_DESCRIPTION, STUPALL1.LABOR_RUN_FACTOR, 
+STUPALL1.LABOR_SETUP_TIME,mach_run_factor,mach_setup_time
+from ifsinfo.PRL_CAPACITY_OORECSTD STUPALL1 
+WHERE LABOR_CLASS_NO is null and STUPALL1.work_center_no in ('CA1','CA125','CA133','CA150','CA2','DB3','HT1')
+and UPPER((select b.state from ifsinfo.started_shop_orders b where  STUPALL1.order_no = b.order_no)) = 'STARTED'
+WITH   read only;
+
+GRANT SELECT ON &OBJECT._IAL TO &AO WITH GRANT OPTION
+/
+
+-----------------------------------------------------------------------------
+----------------------- TABLE FOR DATA REPLICATION --------------------------
+-----------------------------------------------------------------------------
+
+CREATE TABLE &OBJECT._TAB
+   TABLESPACE &ial_data STORAGE (&normal)
+   AS ( SELECT * FROM &OBJECT._IAL WHERE 1=2 )
+/
+
+-----------------------------------------------------------------------------
+--------------------------- OBJECT REGISTRATION -----------------------------
+-----------------------------------------------------------------------------
+
+BEGIN
+   &AO..IAL_Object_API.Enable('&OBJECT');
+END;
+/
+COMMIT
+/

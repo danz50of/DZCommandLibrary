@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ProjectManager>
+  <Item Type="Folder" Caption="GoogleAnalytics">
+    <Item Type="FolderItem" FolderItemType="Standard" Caption="Queries">
+      <Item Type="File" Value="\\pfls0211us\home\danz50of\SQL\Google Analytics\GeoStats.tsm" Caption="GeoStats.tsm" />
+      <Item Type="File" Value="\\pfls0211us\home\danz50of\SQL\Google Analytics\OSStats.tsm" Caption="OSStats.tsm" />
+      <Item Type="File" Value="\\pfls0211us\home\danz50of\SQL\Google Analytics\SessionStats.tsm" Caption="SessionStats.tsm" />
+      <Item Type="File" Value="\\pfls0211us\home\danz50of\SQL\Google Analytics\SystemBrowserStats.tsm" Caption="SystemBrowserStats.tsm" />
+      <Item Type="File" Value="\\pfls0211us\home\danz50of\SQL\Google Analytics\SystemLangStats.tsm" Caption="SystemLangStats.tsm" />
+    </Item>
+    <Item Type="File" Value="\\pfls0211us\home\danz50of\SQL\Google Analytics\Product_Categories.tsm" Caption="Product_Categories.tsm" />
+  </Item>
+  <Item Type="Folder" Caption="Web Categories">
+    <Item Type="File" Value="\\pfls0211us\home\danz50of\SQL\Google Analytics\Product_Categories.tsm" Caption="Product_Categories.tsm" />
+  </Item>
+</ProjectManager>

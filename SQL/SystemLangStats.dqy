@@ -1,0 +1,6 @@
+XLODBC
+1
+DRIVER={MySQL ODBC 5.1 Driver (ToadDataPoint3.5)};SERVER=localhost;DATABASE=_2um5ghi4budmlauojf08id6hufuea56q;UID=root;PORT=52129;OPTION=3;
+SELECT `Pro_&_Consumer:_www_peerless-av_com-www_peerless-av_com`.System.Dimension.language,        `Pro_&_Consumer:_www_peerless-av_com-www_peerless-av_com`.`Time`.Dimension.`year`,        `Pro_&_Consumer:_www_peerless-av_com-www_peerless-av_com`.`Time`.Dimension.month,        `Pro_&_Consumer:_www_peerless-av_com-www_peerless-av_com`.Session.Metric.sessions   FROM `Pro & Consumer: www.peerless-av.com-www.peerless-av.com` `Pro_&_Consumer:_www_peerless-av_com-www_peerless-av_com`  WHERE (`Pro_&_Consumer:_www_peerless-av_com-www_peerless-av_com`.`Time`.Dimension.`date` >=            '2013-01-01 00:00:00') GROUP BY `Pro_&_Consumer:_www_peerless-av_com-www_peerless-av_com`.System.Dimension.language,          `Pro_&_Consumer:_www_peerless-av_com-www_peerless-av_com`.`Time`.Dimension.`year`,          `Pro_&_Consumer:_www_peerless-av_com-www_peerless-av_com`.`Time`.Dimension.month
+
+language	year	month	sessions
