@@ -25,3 +25,16 @@
 		-h   				Halt
 		-P					Power Off
 							ex: shutdown -h -P      Will take 1 min
+***nano						command line text editor that will let me
+							Update files in ubuntu
+			*************************************
+			*									*
+			*      Update server software 		*
+			*			Packages				*
+			*									*
+			*************************************
+***sudo apt-get update        # Fetches the list of available updates
+***sudo apt-get upgrade       # Strictly upgrades the current packages
+***sudo apt-get dist-upgrade  # Installs updates (new ones)
+			**************END********************
+			

@@ -13,3 +13,12 @@
 --Add snap before ftp server
 --Install FTP Server,
 		sudo apt-get install vsftpd
+		
+		Required an execution of apt-get -f install (no package listing)
+		Then installed vsftpd.
+		
+		Modified file /etc/vsftpd.conf
+		
+		(required sudo nano /etc/vsftpd.conf)
+		
+		
