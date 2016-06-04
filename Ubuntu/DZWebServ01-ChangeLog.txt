@@ -1,0 +1,15 @@
+*************************************************************************
+*																		*
+*    Author: Dan Zabinski												*
+*      File: Ubuntu Command File (CommandFile.txt)						*
+*   Purpose: Document / update DZ web Server in Ubuntu					*
+*																		*
+*   Created: 6/4/2016													*
+*																		*
+*************************************************************************
+
+***6/4/2016***
+--Reverted back to situation before installing the GUI version of the server.
+--Add snap before ftp server
+--Install FTP Server,
+		sudo apt-get install vsftpd

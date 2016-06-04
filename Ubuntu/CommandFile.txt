@@ -1,0 +1,27 @@
+*************************************************************************
+*																		*
+*    Author: Dan Zabinski												*
+*      File: Ubuntu Command File (CommandFile.txt)						*
+*   Purpose: To learn / Document ubuntu commands						*
+*																		*
+*   Created: 6/4/2016													*
+*																		*
+*************************************************************************
+
+***Command					DZ Description								
+
+
+***abt-get					Will fetch software updates.  Packages are
+							installed in ubutu and documented in the file
+							/etc/apt/sources.list
+
+***sudo 					Run commands as admin (root)				
+***view						Open a file for viewing.  !!!To exit hit
+							
+***CNTL-ALT F3				Logoff
+							
+***dpkg -l					List all isntalled packages
+***shutdown                 Shutdown options for the server
+		-h   				Halt
+		-P					Power Off
+							ex: shutdown -h -P      Will take 1 min
