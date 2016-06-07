@@ -1,13 +1,16 @@
 *************************************************************************
 *																		*
 *    Author: Dan Zabinski												*
-*      File: Ubuntu Command File (CommandFile.txt)						*
+*      File: Command File (CommandFile.txt)						*
 *   Purpose: To learn / Document ubuntu commands						*
 *																		*
 *   Created: 6/4/2016													*
 *																		*
 *************************************************************************
-
+*																		*
+*         System:  Ubuntu												*
+*																		*
+*************************************************************************
 ***Command					DZ Description								
 
 
@@ -36,5 +39,14 @@
 ***sudo apt-get update        # Fetches the list of available updates
 ***sudo apt-get upgrade       # Strictly upgrades the current packages
 ***sudo apt-get dist-upgrade  # Installs updates (new ones)
+*																		*
+*************************************************************************
+*																		*
+*             System:  Windows											*
+*																		*
+*************************************************************************
+
+***shutdown /i 				Displays a GUI to execute the windows shutdown
+							command.  DZ Home computer is 10.0.0.4
 			**************END********************
 			
