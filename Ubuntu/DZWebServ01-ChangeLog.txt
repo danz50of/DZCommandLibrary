@@ -21,4 +21,12 @@
 		
 		(required sudo nano /etc/vsftpd.conf)
 		
+***6/6/2016***
+--Researching how to use PUTTY to do updates remotly to server.  I will run
+		putty on the local machine.  However, need to install openssh server 
+		to the ubuntu machine.
+		
+		Running command:   apt-get install openssh-server
+		Run Command apt-get uninstall mysql-server mysql-client mysql-command
+		Changed VM network card to "bridged" in the network setup for the VM
 		
