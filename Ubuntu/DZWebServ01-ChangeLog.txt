@@ -29,4 +29,10 @@
 		Running command:   apt-get install openssh-server
 		Run Command apt-get uninstall mysql-server mysql-client mysql-command
 		Changed VM network card to "bridged" in the network setup for the VM
-		
+***6/8/2016***
+--Completely whipped out server installation and laid down a fresh install
+		without any LAMP programs pre-installed.
+***6/9/2016***
+--Using the server log (above), I have re-installed open SSH allowing for
+		a putty connection.
+--Ran update routine to update Ubuntu software
