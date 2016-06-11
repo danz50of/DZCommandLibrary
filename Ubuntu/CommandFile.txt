@@ -36,5 +36,18 @@
 ***sudo apt-get update        # Fetches the list of available updates
 ***sudo apt-get upgrade       # Strictly upgrades the current packages
 ***sudo apt-get dist-upgrade  # Installs updates (new ones)
+<<<<<<< Updated upstream
+=======
+***sudo su					Use the "root" user
+*																		*
+*************************************************************************
+*																		*
+*             System:  Windows											*
+*																		*
+*************************************************************************
+
+***shutdown /i 				Displays a GUI to execute the windows shutdown
+							command.  DZ Home computer is 10.0.0.4
+>>>>>>> Stashed changes
 			**************END********************
 			
