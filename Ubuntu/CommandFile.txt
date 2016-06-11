@@ -1,7 +1,7 @@
 *************************************************************************
 *																		*
 *    Author: Dan Zabinski												*
-*      File: Command File (CommandFile.txt)						*
+*      File: Command File (CommandFile.txt)								*
 *   Purpose: To learn / Document ubuntu commands						*
 *																		*
 *   Created: 6/4/2016													*

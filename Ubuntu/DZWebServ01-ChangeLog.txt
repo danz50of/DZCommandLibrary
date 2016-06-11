@@ -21,3 +21,12 @@
 		
 		(required sudo nano /etc/vsftpd.conf)
 		
+6/10/2016***
+--Lost a lot of updates due to git issues.  However, recap is as follows...
+--Re-installed ubuntu and started from scratch.
+--Chose options in install of:
+	Manual Package selection
+	LAMP Server
+	SAMBA File Server
+	Standard system utilities
+	OpenSSH Server
