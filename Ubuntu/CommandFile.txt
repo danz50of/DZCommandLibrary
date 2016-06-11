@@ -30,6 +30,7 @@
 							ex: shutdown -h -P      Will take 1 min
 ***nano						command line text editor that will let me
 							Update files in ubuntu
+***sudo su       			Super user "root" user enabled
 			*************************************
 			*									*
 			*      Update server software 		*
