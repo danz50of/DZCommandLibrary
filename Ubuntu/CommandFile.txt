@@ -1,16 +1,24 @@
 *************************************************************************
 *																		*
 *    Author: Dan Zabinski												*
+<<<<<<< HEAD
 *      File: Command File (CommandFile.txt)								*
+=======
+*      File: Ubuntu Command File (CommandFile.txt)						*
+>>>>>>> master
 *   Purpose: To learn / Document ubuntu commands						*
 *																		*
 *   Created: 6/4/2016													*
 *																		*
 *************************************************************************
+<<<<<<< HEAD
 *																		*
 *         System:  Ubuntu												*
 *																		*
 *************************************************************************
+=======
+
+>>>>>>> master
 ***Command					DZ Description								
 
 
@@ -30,7 +38,10 @@
 							ex: shutdown -h -P      Will take 1 min
 ***nano						command line text editor that will let me
 							Update files in ubuntu
+<<<<<<< HEAD
 ***sudo su       			Super user "root" user enabled
+=======
+>>>>>>> master
 			*************************************
 			*									*
 			*      Update server software 		*
@@ -40,6 +51,12 @@
 ***sudo apt-get update        # Fetches the list of available updates
 ***sudo apt-get upgrade       # Strictly upgrades the current packages
 ***sudo apt-get dist-upgrade  # Installs updates (new ones)
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+***sudo su					Use the "root" user
+>>>>>>> master
 *																		*
 *************************************************************************
 *																		*
@@ -49,5 +66,9 @@
 
 ***shutdown /i 				Displays a GUI to execute the windows shutdown
 							command.  DZ Home computer is 10.0.0.4
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> master
 			**************END********************
 			

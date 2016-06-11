@@ -21,6 +21,7 @@
 		
 		(required sudo nano /etc/vsftpd.conf)
 		
+<<<<<<< HEAD
 6/10/2016***
 --Lost a lot of updates due to git issues.  However, recap is as follows...
 --Re-installed ubuntu and started from scratch.
@@ -30,3 +31,6 @@
 	SAMBA File Server
 	Standard system utilities
 	OpenSSH Server
+=======
+		
+>>>>>>> master
