@@ -20,9 +20,7 @@
 		Modified file /etc/vsftpd.conf
 		
 		(required sudo nano /etc/vsftpd.conf)
-		
-<<<<<<< HEAD
-6/10/2016***
+***6/10/2016***
 --Lost a lot of updates due to git issues.  However, recap is as follows...
 --Re-installed ubuntu and started from scratch.
 --Chose options in install of:
@@ -31,6 +29,10 @@
 	SAMBA File Server
 	Standard system utilities
 	OpenSSH Server
-=======
-		
->>>>>>> master
+***6/11/2016
+--Insalling Drupal, dependancies to install prior to installation are:
+***6/12/2016***
+--Installed w3m web browser
+	w3m is a basic browser used to review websites in commandline form
+--Installed FTP Server, vsftpd from apt-get
+		Update configuration files       /etc/vsftpd.conf
