@@ -45,6 +45,7 @@
 
 ***sudo su					Use the "root" user
 ***w3m <url>				Used to view websites in the command line browser
+***apt-get install git		  #Will install github on ubuntu.  
 
 *																		*
 *************************************************************************
