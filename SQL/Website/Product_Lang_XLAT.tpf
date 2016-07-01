@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ProjectManager>
+  <Item Type="Folder" Caption="Sample Project">
+    <Item Type="FolderItem" FolderItemType="Standard" Caption="Diagrams">
+      <Item Type="File" Value="C:\Program Files (x86)\Dell\Toad Data Point 3.6\Plugins\Odbc\Sample Database\AddressPerRegion.ter" Caption="AddressPerRegion.ter" />
+      <Item Type="File" Value="C:\Program Files (x86)\Dell\Toad Data Point 3.6\Plugins\Odbc\Sample Database\Quest_Stage_Schema.ter" Caption="Quest_Stage_Schema.ter" />
+    </Item>
+    <Item Type="FolderItem" FolderItemType="Standard" Caption="Queries">
+      <Item Type="File" Value="C:\Program Files (x86)\Dell\Toad Data Point 3.6\Plugins\Odbc\Sample Database\AddressesForSmithAndEvans.tsm" Caption="AddressesForSmithAndEvans.tsm" />
+      <Item Type="File" Value="C:\Program Files (x86)\Dell\Toad Data Point 3.6\Plugins\Odbc\Sample Database\OrdersGreaterthan1000Dollars.tsm" Caption="OrdersGreaterthan1000Dollars.tsm" />
+      <Item Type="File" Value="C:\Program Files (x86)\Dell\Toad Data Point 3.6\Plugins\Odbc\Sample Database\OrdersGreaterthan1000Dollars.sql" Caption="OrdersGreaterthan1000Dollars.sql" />
+      <Item Type="File" Value="C:\Program Files (x86)\Dell\Toad Data Point 3.6\Plugins\Odbc\Sample Database\selectedwarehouses.sql" Caption="selectedwarehouses.sql" />
+    </Item>
+    <Item Type="FolderItem" FolderItemType="Standard" Caption="Reports">
+      <Item Type="File" Value="C:\Program Files (x86)\Dell\Toad Data Point 3.6\Plugins\Odbc\Sample Database\AddressPerRegion.xls" Caption="AddressPerRegion.xls" />
+      <Item Type="File" Value="C:\Program Files (x86)\Dell\Toad Data Point 3.6\Plugins\Odbc\Sample Database\InventoryCountByWarehouse.xls" Caption="InventoryCountByWarehouse.xls" />
+      <Item Type="File" Value="C:\Program Files (x86)\Dell\Toad Data Point 3.6\Plugins\Odbc\Sample Database\CustomerList.tdr" Caption="CustomerList.tdr" />
+      <Item Type="File" Value="C:\Program Files (x86)\Dell\Toad Data Point 3.6\Plugins\Odbc\Sample Database\ItemsPerWareHouse.tdr" Caption="ItemsPerWareHouse.tdr" />
+      <Item Type="File" Value="C:\Program Files (x86)\Dell\Toad Data Point 3.6\Plugins\Odbc\Sample Database\CustomerOrders.tdr" Caption="CustomerOrders.tdr" />
+      <Item Type="ToDoList" Value="todo:///To-Do+List+-+Weekly" Completed="False" DueDate="3/16/2007" Caption="To-Do List - Weekly"><![CDATA[1) Query address from access database
+2) Merge into Oracle database
+3) Run new addresses report.
+4) Email Marge in HR]]></Item>
+    </Item>
+  </Item>
+  <Item Type="Folder" Caption="Translations">
+    <Item Type="DBObject" Value="mysql://danz50of@prodmysql.peerless-av.com/" Caption=""><![CDATA[<Connection type="MySQL" autoCommit="True"><Path>MySQL</Path><AutoConnect>False</AutoConnect><Database></Database><Host>prodmysql.peerless-av.com</Host><User>danz50of</User><Category>D27C7CFF:Production</Category><Password>3D9339D1FA9E377D35E361B82B7C0AEE</Password><WinAuth>False</WinAuth><LastConnectionDate>2016-06-13T14:31:03.9516792</LastConnectionDate><Options><Protocol type="Socket" /></Options></Connection>]]></Item>
+    <Item Type="File" Value="\\pfls0211us\home\danz50of\GitHub\DZCommandLibrary\SQL\Website\Product_Lang_XLAT.tsm" Caption="Product_Lang_XLAT.tsm" />
+    <Item Type="DBObject" Value="mysql://danz50of@prodmysql.peerless-av.com/TABLE/prod_drupal/field_revision_field_description" ImageIndex="1075" Caption="Table prod_drupal.field_revision_field_description" />
+    <Item Type="DBObject" Value="mysql://danz50of@prodmysql.peerless-av.com/TABLE/d6_prod_ci/product_features" ImageIndex="1079" Caption="Table d6_prod_ci.product_features" />
+    <Item Type="DBObject" Value="mysql://danz50of@prodmysql.peerless-av.com/VIEW/prod_drupal/product_descriptions" ImageIndex="111" Caption="View prod_drupal.product_descriptions" />
+    <Item Type="DBObject" Value="mysql://danz50of@prodmysql.peerless-av.com/TABLE/prod_drupal/commerce_product" ImageIndex="1075" Caption="Table prod_drupal.commerce_product" />
+    <Item Type="DBObject" Value="mysql://danz50of@prodmysql.peerless-av.com/TABLE/prod_drupal/entity_translation" ImageIndex="1075" Caption="Table prod_drupal.entity_translation" />
+    <Item Type="File" Value="\\pfls0211us\home\danz50of\GitHub\DZCommandLibrary\SQL\Website\Product_Features_XLAT.tsm" Caption="Product_Features_XLAT.tsm" />
+  </Item>
+</ProjectManager>
