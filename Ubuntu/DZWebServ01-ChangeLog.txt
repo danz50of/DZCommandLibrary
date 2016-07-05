@@ -36,3 +36,13 @@
 	w3m is a basic browser used to review websites in commandline form
 --Installed FTP Server, vsftpd from apt-get
 		Update configuration files       /etc/vsftpd.conf
+***6/13/2016***
+--Found command and explination of mysql permissions to connect from local machine.
+	Ran code to allow root to connect from any machine.  This will have to change in
+	PROD, however for now this is okay.
+	
+--modified /etc/mysql/mysql.conf.d/mysqld.cnf  -- Referenced by the standard /etc/mysql/my.cnf
+	this modification required the bind veriable to be set.  It was set to 10.0.0.18.
+	Ran Mysql workbench on windows server.  Everything worked well.  
+	Also worked on mysql ubuntu desktop
+	
