@@ -1,0 +1,2 @@
+CREATE DATABASE dev_ci;
+CREATE DATABASE dev_drupal;

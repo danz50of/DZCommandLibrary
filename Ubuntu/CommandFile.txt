@@ -46,6 +46,9 @@
 ***sudo su					Use the "root" user
 ***w3m <url>				Used to view websites in the command line browser
 ***apt-get install git		  #Will install github on ubuntu.  
+********************connect to ubuntu server on aws******************************
+***ssh      ssh -i "DAZ.pem" ubuntu@ec2-54-197-26-10.compute-1.amazonaws.com    ***File needs to be on computer***
+
 
 *																		*
 *************************************************************************
