@@ -31,11 +31,15 @@
             MAX (actual_machine_setup_cost) Actual_Machine_Setup_Cost,
             MAX (standard_p_p_h) Stnd_P_P_H,
             MAX (Actual_P_P_H) Actual_P_P_H,
-              MAX (stnd_setup_cost)
-            - MAX (Actual_setup_cost)
-            + MAX (Stnd_Run_Labor_Cost)
-            - MAX (actual_run_labor_cost)
-               Didderence,
+              ((MAX (stnd_setup_cost)
+            - MAX (Actual_setup_cost))
+            + (MAX (Stnd_Run_Labor_Cost)
+            - MAX (actual_run_labor_cost))
+            + (MAX (Stnd_Mach_Setup_Cost)
+            - MAX (actual_machine_setup_cost))
+            + (MAX (Stnd_Mach_Run_Cost)
+            - MAX (actual_machine_run_cost)))
+               Difference,
             shop_ord_run_code,
             routing_run_code,
             phase_in_date_to_use,
@@ -104,6 +108,8 @@
                                WHEN 0 THEN 0
                                ELSE ROUND (a.r_prod_qty * a.run_standard, 2)
                             END)
+                        WHEN 'Hours'
+                        THEN a.run_standard
                         ELSE
                            (CASE a.run_standard
                                WHEN 0 THEN 0
@@ -144,6 +150,8 @@
                                           * (d.overhead_fac / 100)),
                                        2)
                             END)
+                        WHEN 'Hours'
+                        THEN ROUND (a.run_standard * d.labor_class_rate + ( d.labor_class_rate * (d.overhead_fac / 100)), 2)
                         ELSE
                            (CASE a.run_standard
                                WHEN 0
@@ -175,7 +183,7 @@
                                   AND g.alternative_no = '*'
                                   AND g.contract = 'MP'
                                   AND g.bom_type_db <> 'F')
-                        WHEN 'Hours/Unit'
+                        WHEN 'Hours/Unit'                        
                         THEN
                            (CASE a.run_standard
                                WHEN 0
@@ -185,6 +193,8 @@
                                     ROUND (a.r_prod_qty * a.run_standard, 2)
                                   * c.wc_rate
                             END)
+                        WHEN 'Hours'
+                        THEN ROUND (a.run_standard * c.wc_rate, 2)
                         ELSE
                            (CASE a.run_standard
                                WHEN 0
@@ -259,6 +269,7 @@
                     AND d.cost_set = '1'
                     AND a.part_no = e.part_no
                     AND e.cost_set = '1')
+                    where account_date > to_date('8/1/2016','mm/dd/yyyy')
    GROUP BY org_code,
             emp_no,
             emp_name,

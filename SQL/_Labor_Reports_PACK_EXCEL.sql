@@ -21,7 +21,9 @@
             MAX (OP_QTY_COMPLETE) OP_QTY_COMPLETE,
             MAX (STND_P_P_H) STND_P_P_H,
             MAX (ACTUAL_P_P_H) ACTUAL_P_P_H,
-            MAX (DIDDERENCE) DIFFERENCE,
+            MAX (DIFFERENCE) DIFFERENCE,
+            shop_ord_run_code,
+            routing_run_code,
             (CASE
                 WHEN MAX (Actual_Op_Setup_Cost) > 0
                 THEN
@@ -48,4 +50,6 @@
             OP_NO,
             S_O_QTY,
             W_C_DESCRIPTION,
-            ORG_CODE
+            ORG_CODE,
+            shop_ord_run_code,
+            routing_run_code

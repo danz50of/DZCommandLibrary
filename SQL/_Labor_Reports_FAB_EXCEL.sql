@@ -29,7 +29,9 @@
             (actual_machine_setup_cost) A_Mach_Setup_Cost,
             (Stnd_P_P_H) S_P_P_H,
             (Actual_P_P_H) A_P_P_H,
-            Didderence diff,
+            Difference diff,
+            shop_ord_run_code,
+            routing_run_code,
             (CASE
                 WHEN (Actual_Op_Setup_Cost) > 0
                 THEN
@@ -54,4 +56,5 @@
                              '1134',
                              '1137',
                              '1140')
-   ORDER BY org_code, account_date, emp_no
+   ORDER BY org_code, account_date, emp_no, shop_ord_run_code,
+            routing_run_code
