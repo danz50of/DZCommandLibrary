@@ -1,0 +1,12 @@
+
+F:\GitHub\DZCommandLibrary\SQL\PLSQL>sqlplus /nolog 
+
+SQL*Plus: Release 11.2.0.1.0 Production on Thu Aug 4 09:36:51 2016
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+SQL> Terminate batch job (Y/N)? 
+
+F:\GitHub\DZCommandLibrary\SQL\PLSQL>conn ifsapp/19totem44@prod 
+
+F:\GitHub\DZCommandLibrary\SQL\PLSQL>exit
