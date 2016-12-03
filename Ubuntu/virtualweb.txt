@@ -1,6 +1,6 @@
 *************************************************************************
-*									*
-*  Author: Dan Zabinski							*
+*									                                    *
+*  Author: Dan Zabinski							                        *
 * Purpose: Document the setup and file modification required to run     *
 *          test websites on Ubuntu and Apache by creating virtual       *
 *          hosts on each machine.                                       *
@@ -9,11 +9,11 @@
 *          Final Documentation for recreating if / as needed.           *
 *                                                                       *
 *************************************************************************
-*		Version Control						*
+*		Version Control					                            	*
 *************************************************************************
-*	Date:			Change Description:			*
-*       12/3/2016		Initial authoring / creation            *
-*									*
+*	Date:			Change Description:		                        	*
+*       12/3/2016		Initial authoring / creation                    *
+*									                                    *
 *************************************************************************
 
 ***Overall Method / Steps***
@@ -36,3 +36,6 @@ location of the hosts file, which is used to assign a friendly localhost name:
 ##create an index.html file to test the folder structure.
 
 ***Need to add apple directions***
+
+Location of host file to add url name to local host is:
+
