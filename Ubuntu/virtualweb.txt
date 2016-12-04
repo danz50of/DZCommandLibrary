@@ -12,7 +12,8 @@
 *		Version Control					                            	*
 *************************************************************************
 *	Date:			Change Description:		                        	*
-*       12/3/2016		Initial authoring / creation                    *
+*   12/3/2016		Initial authoring / creation                        *
+*   12/4/2016       Added Apple file Documentation                      *
 *									                                    *
 *************************************************************************
 
@@ -35,7 +36,11 @@ location of the hosts file, which is used to assign a friendly localhost name:
 
 ##create an index.html file to test the folder structure.
 
-***Need to add apple directions***
+***Apple Directions***
 
 Location of host file to add url name to local host is:
+/etc/hosts
 
+Location of the apache virtual host file(s)
+/etc/apache2/extra/httpd-vhosts.conf
+/etc/apache2/users/danz50of.conf
