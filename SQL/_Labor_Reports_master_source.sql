@@ -257,7 +257,7 @@
                     IFSAPP.work_center_cost c,
                     IFSAPP.labor_class_cost d,
                     IFSAPP.part_cost e
-              WHERE     TO_CHAR (account_date, 'yyyymm') >= '201401'
+              WHERE     TO_CHAR (account_date, 'yyyymm') between '201601' and '201611'
                     AND b.contract = 'MP'
                     AND c.contract = 'MP'
                     AND d.contract = 'MP'
@@ -269,7 +269,7 @@
                     AND d.cost_set = '1'
                     AND a.part_no = e.part_no
                     AND e.cost_set = '1')
-                    where account_date > to_date('8/1/2016','mm/dd/yyyy')
+   --where order_no = '1191569'                   
    GROUP BY org_code,
             emp_no,
             emp_name,
