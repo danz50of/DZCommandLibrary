@@ -1,3 +1,5 @@
+--LABOR REPORT SOURCE FOR 2016 DATA REVIEW
+
      SELECT org_code,
             emp_no,
             emp_name,
@@ -263,7 +265,8 @@
                     IFSAPP.work_center_cost c,
                     IFSAPP.labor_class_cost d,
                     IFSAPP.part_cost e
-              WHERE     TO_CHAR (account_date, 'yyyymm') >= '201601'
+                    WHERE     TO_CHAR (account_date, 'yyyymm') BETWEEN '201601'
+                              AND '201612'
                     AND b.contract = 'MP'
                     AND c.contract = 'MP'
                     AND d.contract = 'MP'
