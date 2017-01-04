@@ -100,14 +100,17 @@
                                   AND g.bom_type_db <> 'F')
                         WHEN 'Hours/Unit'
                         THEN
+                           (CASE a.run_standard * standard_crewsize
                                WHEN 0 THEN 0
                                ELSE ROUND (a.r_prod_qty * a.run_standard, 2)
                             END)
                         WHEN 'Hours'
                         THEN
+                           a.run_standard * standard_crewsize
                         ELSE
                            (CASE a.run_standard
                                WHEN 0 THEN 0
+                               ELSE ROUND ((a.r_prod_qty / a.run_standard) * standard_crewsize, 2)
                             END)
                      END)
                        Stnd_Production_Work_Hours,
