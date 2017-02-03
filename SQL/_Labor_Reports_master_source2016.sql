@@ -1,3 +1,5 @@
+--LABOR REPORT SOURCE FOR 2016 DATA REVIEW
+
      SELECT org_code,
             emp_no,
             emp_name,
@@ -108,7 +110,7 @@
                         ELSE
                            (CASE a.run_standard
                                WHEN 0 THEN 0
-                               ELSE ROUND (a.r_prod_qty / a.run_standard, 2)
+                               ELSE ROUND ((a.r_prod_qty / a.run_standard), 2)
                             END)
                      END)
                        Stnd_Production_Work_Hours,
@@ -263,7 +265,8 @@
                     IFSAPP.work_center_cost c,
                     IFSAPP.labor_class_cost d,
                     IFSAPP.part_cost e
-              WHERE     TO_CHAR (account_date, 'yyyymm') >= '201601'
+                    WHERE     TO_CHAR (account_date, 'yyyymm') BETWEEN '201601'
+                              AND '201612'
                     AND b.contract = 'MP'
                     AND c.contract = 'MP'
                     AND d.contract = 'MP'
