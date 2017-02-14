@@ -14,3 +14,6 @@
 Added MTDOrdersIn to GIT for version tracking.  The main file will be saved
 on the peerless network, but versions should be maintained to track changes
 in the dashboard for sales.
+
+--converted to storing in a .zip file with a password for security reasons.
+DZ has pwd documentation.
