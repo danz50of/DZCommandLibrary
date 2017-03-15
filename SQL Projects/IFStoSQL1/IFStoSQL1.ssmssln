@@ -1,0 +1,10 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# SQL Server Management Studio Solution File, Format Version 11.00
+Project("{54D695D8-3FC1-47A3-8D60-959ECE458279}") = "IFStoSQL1", "IFStoSQL1\IFStoSQL1.ssmsasproj", "{E83824F8-DBCB-4075-BC95-85C137A27136}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
