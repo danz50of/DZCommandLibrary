@@ -263,7 +263,7 @@
                     IFSAPP.work_center_cost c,
                     IFSAPP.labor_class_cost d,
                     IFSAPP.part_cost e
-              WHERE     TO_CHAR (account_date, 'yyyymm') >= '201601'
+              WHERE     TO_CHAR (account_date, 'yyyymm') >= '201701'
                     AND b.contract = 'MP'
                     AND c.contract = 'MP'
                     AND d.contract = 'MP'
