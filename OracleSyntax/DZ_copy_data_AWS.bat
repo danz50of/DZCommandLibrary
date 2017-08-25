@@ -1,0 +1,2 @@
+robocopy \\10.100.3.195\D$\bkup\prod\oradata\ \\52.4.226.128\d$\orafilescopied /xf /s /mt:1 /log:dz_copy_log.txt
+robocopy \\10.100.3.195\e$\bkup\PROD\oradata\ \\52.4.226.128\d$\orafilescopied /xf /s /mt:1 /log+:dz_copy_log.txt
