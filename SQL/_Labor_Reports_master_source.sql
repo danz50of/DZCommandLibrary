@@ -264,6 +264,7 @@
                     IFSAPP.labor_class_cost d,
                     IFSAPP.part_cost e
               WHERE     TO_CHAR (account_date, 'yyyymm') >= '201601'
+                    AND B.PART_NO = 'ECN33644'
                     AND b.contract = 'MP'
                     AND c.contract = 'MP'
                     AND d.contract = 'MP'
