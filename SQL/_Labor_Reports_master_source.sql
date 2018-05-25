@@ -277,6 +277,7 @@
                     IFSAPP.work_center_cost c,
                     IFSAPP.labor_class_cost d,
                     IFSAPP.part_cost e
+               where a.account_date >= to_date('1/1/2016','mm/dd/yyyy')
                     AND b.contract = 'MP'
                     AND c.contract = 'MP'
                     AND d.contract = 'MP'
