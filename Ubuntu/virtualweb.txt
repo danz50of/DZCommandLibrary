@@ -1,0 +1,46 @@
+*************************************************************************
+*									                                    *
+*  Author: Dan Zabinski							                        *
+* Purpose: Document the setup and file modification required to run     *
+*          test websites on Ubuntu and Apache by creating virtual       *
+*          hosts on each machine.                                       *
+*                                                                       *
+*          Files have been modified on both MAC and Ubuntu for testing. *
+*          Final Documentation for recreating if / as needed.           *
+*                                                                       *
+*************************************************************************
+*		Version Control					                            	*
+*************************************************************************
+*	Date:			Change Description:		                        	*
+*   12/3/2016		Initial authoring / creation                        *
+*   12/4/2016       Added Apple file Documentation                      *
+*									                                    *
+*************************************************************************
+
+***Overall Method / Steps***
+1.  install apache
+2.  update host(s) files so local host can be refereced by your website
+    url names.  EX,     dztestsite   127.0.0.1
+3.  Setup apache httpd file to allow for virtual hosts and to read the 
+    configuration file allowing for virtual directories.  Virtual 
+    directories map the url to the local file system storage of your 
+    web assests.    
+
+***Ubuntu Documentation***
+
+location of host file to add URL name to local host is:
+/etc/apache2/sites-available/000-default.conf
+
+location of the hosts file, which is used to assign a friendly localhost name:
+/etc/hosts
+
+##create an index.html file to test the folder structure.
+
+***Apple Directions***
+
+Location of host file to add url name to local host is:
+/etc/hosts
+
+Location of the apache virtual host file(s)
+/etc/apache2/extra/httpd-vhosts.conf
+/etc/apache2/users/danz50of.conf
