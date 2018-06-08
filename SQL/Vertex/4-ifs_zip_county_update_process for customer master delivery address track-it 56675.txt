@@ -1,0 +1,62 @@
+--UPDATED CODE BELOW RUN 10/19/2017
+
+
+
+
+--SET SERVEROUTPUT ON SIZE UNLIMITED  --MAY OR MAY NOT NEED THIS LINE DEPENDING ON THE TOOL YOU WILL BE USING.
+DECLARE
+   info_      VARCHAR2(2000) := NULL;
+   attr_      VARCHAR2(256);
+   action_    VARCHAR2(2) := 'DO';
+   count_     NUMBER := 0;
+   err_count_ NUMBER := 0;
+
+CURSOR GetAddresses is
+  SELECT cia.customer_id,
+  nvl(cia.zip_code,'No IFS Zip') ifs_zip,
+  nvl(tz.zip,'No Table Zip')   table_zip,
+  cia.county ifs_county,
+  cia.address_id,
+  coc.date_del expired,
+  CIA.OBJID,
+  CIA.OBJVERSION,
+ TZ.COUNTY
+ FROM CUSTOMER_INFO_ADDRESS cia, ifsinfo.TMP_ZC_TAB TZ, cust_ord_customer coc
+ WHERE SUBSTR(CIA.ZIP_CODE,0,5)=TZ.ZIP and cia.customer_id = coc.customer_no;
+--   and
+-- cIA.customer_id in ('371985');
+ --  ('036346','007401','060656','111865','011800','011956','011935','011948','012050','024063','024063','030667','034550','036415','048846'
+ --  ,'052561','053449','060233','000013','059235','059113','059117','059402','059184','464549','060549','200000','059177','059155','059154'
+  --  ,'066324','062362') order by cia.customer_id,cia.address_id;
+
+
+
+
+BEGIN
+
+  FOR Rec IN GetAddresses LOOP
+
+    --setting the value for attr before the api call,
+    CLIENT_SYS.Clear_Attr(attr_); --always clear the attr first since many api calls will return data to the attr
+    CLIENT_SYS.Add_To_Attr('COUNTY',Rec.COUNTY,attr_); --setting attr value
+
+    --wrapping to kickout expections, however don't expect many
+    begin
+      CUSTOMER_INFO_ADDRESS_API.Modify__( info_, Rec.OBJID, Rec.OBJVERSION, attr_, action_ );
+      commit;
+      count_ := count_ + 1;
+
+    exception when others then
+      dbms_output.enable(1000000);
+      DBMS_OUTPUT.Put_Line('Customer = ' || Rec.customer_id || '|' 'Expiration: '   || rec.expired || '|' 'ZIP: ' || rec.ifs_zip || '|' ||  'ADDR_ID = '  || Rec.address_id || '|' ||  'attr_ =   '  || ' ' || attr_ || '|' || SQLERRM);
+     -- DBMS_OUTPUT.Put_Line(SQLERRM);
+      err_count_ := err_count_ + 1;
+    end;
+
+
+  END LOOP;
+  --output count results
+  DBMS_OUTPUT.Put_Line('count_ = ' || count_ || ', err_count_ = ' || err_count_ );
+END;
+
+
