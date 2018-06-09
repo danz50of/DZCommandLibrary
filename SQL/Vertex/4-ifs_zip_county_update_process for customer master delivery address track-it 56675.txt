@@ -23,7 +23,7 @@ CURSOR GetAddresses is
  TZ.COUNTY
  FROM CUSTOMER_INFO_ADDRESS cia, ifsinfo.TMP_ZC_TAB TZ, cust_ord_customer coc
  WHERE SUBSTR(CIA.ZIP_CODE,0,5)=TZ.ZIP and cia.customer_id = coc.customer_no;
---   and
+ --  and
 -- cIA.customer_id in ('371985');
  --  ('036346','007401','060656','111865','011800','011956','011935','011948','012050','024063','024063','030667','034550','036415','048846'
  --  ,'052561','053449','060233','000013','059235','059113','059117','059402','059184','464549','060549','200000','059177','059155','059154'
@@ -48,7 +48,7 @@ BEGIN
 
     exception when others then
       dbms_output.enable(1000000);
-      DBMS_OUTPUT.Put_Line('Customer = ' || Rec.customer_id || '|' 'Expiration: '   || rec.expired || '|' 'ZIP: ' || rec.ifs_zip || '|' ||  'ADDR_ID = '  || Rec.address_id || '|' ||  'attr_ =   '  || ' ' || attr_ || '|' || SQLERRM);
+      DBMS_OUTPUT.Put_Line('Customer = ' || Rec.customer_id || '|' ||  'Expiration: '   || rec.expired || '|'  ||'ZIP: ' || rec.ifs_zip || '|' ||  'ADDR_ID = '  || Rec.address_id || '|' ||  'attr_ =   '  || ' ' || attr_ || '|' || SQLERRM);
      -- DBMS_OUTPUT.Put_Line(SQLERRM);
       err_count_ := err_count_ + 1;
     end;
