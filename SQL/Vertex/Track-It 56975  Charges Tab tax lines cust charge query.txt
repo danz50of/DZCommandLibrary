@@ -1,0 +1,10 @@
+select  a.order_no,b.customer_no,customer_info_api.get_name(b.customer_no) name,b.state order_status,a.charge_amount,a.fee_code,a.date_entered, 
+(select count(*) from cust_ord_charge_tax_lines where order_no = a.order_no) tax_lines_cnt
+from customer_order_charge  a, customer_order b
+     where a.order_no = b.order_no   
+     /*and b.customer_no in
+     ('036346','007401','060656','111865','011800','011956','011935','011948','012050','024063','024063','030667','034550','036415','048846'
+      ,'052561','053449','060233','000013','059235','059113','059117','059402','059184','464549','060549','200000','059177','059155','059154','066324','062362') */
+      and b.state not in ('Invoiced/Closed','Cancelled') 
+      and a.contract = 'MP'
+       order by b.customer_no,a.order_no;

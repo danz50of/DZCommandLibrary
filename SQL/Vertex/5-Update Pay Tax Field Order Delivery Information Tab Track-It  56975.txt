@@ -1,0 +1,71 @@
+-- set serveroutput   off  --
+-- set serveroutput on size 1000000  --
+--  .  
+-- 
+--  
+
+declare
+
+  Cursor GetOrder is
+       
+  select order_no,
+  customer_no,
+  date_entered,
+  contract,
+  country_code,
+  bill_addr_no,
+  ship_addr_no,
+  addr_flag,
+  vat_db,
+  state ,
+  objversion,
+  objid
+  from customer_order  
+  where  
+  contract = 'MP' and state not in ('Invoiced/Closed','Cancelled') 
+  and vat_db = 'N'; 
+  --   and customer_no in
+   --  ('036346','007401','060656','111865','011800','011956','011935','011948','012050','024063','024063','030667','034550','036415','048846'
+  --    ,'052561','053449','060233','000013','059235','059113','059117','059402','059184','464549','060549','200000','059177','059155','059154'
+  --     ,'066324','062362');
+
+  ErrMess_        varchar2(200);
+  result_     varchar2(2000);
+  attr_       varchar2(2000);
+  vat_db_               varchar2(50);
+  order_no_             varchar2(20);
+  customer_val_          varchar2(20);
+    
+
+  begin
+  For rec in GetOrder   LOOP
+
+  --                      --
+  begin
+
+        result_ := NULL;
+        attr_   := NULL;
+        vat_db_ := 'Y';
+                
+     
+        customer_val_       := rec.customer_no;
+        order_no_           := rec.order_no;
+        Client_SYS.Add_To_Attr('VAT_DB',vat_db_,attr_);
+        
+
+        CUSTOMER_ORDER_API.MODIFY__(
+    result_
+        , rec.objid
+        , rec.objversion
+        , attr_
+        , 'DO');
+  commit;
+  exception
+  when others then
+        ErrMess_ := SUBSTR(sqlerrm,1,150);
+        dbms_output.enable(1000000);
+  dbms_output.put_line('Order:' || ORDER_NO_ || '-' || customer_val_ ||'    Error Message:  '  || ErrMess_);
+  end;
+        END LOOP;
+end;
+

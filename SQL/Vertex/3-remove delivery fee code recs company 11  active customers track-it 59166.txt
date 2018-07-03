@@ -1,0 +1,49 @@
+--  remove delivery_fee_code recs   --   
+-- 
+--   
+
+declare
+
+  Cursor RemoveDeliveryFeeCode is
+     select identity,
+       customer_info_api.get_name(identity) name,
+       address_id,
+       fee_code tax_code,
+       statutory_fee_api.get_description(company,fee_code) description,
+       statutory_fee_api.get_percentage(company,fee_code)  tax_percent,
+       (select date_del from cust_ord_customer where customer_no = identity) customer_expired_date ,
+       objid,
+       objversion
+        from  delivery_fee_code 
+         where company = '11' 
+         --and identity in ('000009')
+         and   (select date_del from cust_ord_customer where customer_no = identity) is null
+         order by identity,address_id;
+
+  ErrMess_        varchar2(200);
+  result_     varchar2(2000);
+  cust_val              varchar2(2000);  
+
+  begin
+  For rec in RemoveDeliveryFeeCode LOOP
+
+  --  delete DELETE DELIVERY FEE CODES RECS  TAX REC IN CUSTOMER, ADDRESS, TAX INFORMATION  TAXES TAB --
+  begin
+
+        result_ := NULL;
+       
+         
+        cust_val       := rec.identity;
+  DELIVERY_FEE_CODE_API.REMOVE__(
+    result_
+        , rec.objid
+        , rec.objversion
+        , 'DO');
+  commit;
+  exception
+  when others then
+        ErrMess_ := SUBSTR(sqlerrm,1,150);
+  dbms_output.put_line('Customer:' || cust_val ||'Error Message: '  || ErrMess_);
+  end;
+   END LOOP;
+end;

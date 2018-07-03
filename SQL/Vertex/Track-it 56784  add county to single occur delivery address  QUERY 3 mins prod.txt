@@ -1,0 +1,23 @@
+    SELECT 
+    coa.customer_no,
+    coa.order_no,
+   trunc(co.date_entered) ord_head_date,
+   nvl(coa.zip_code,'No IFS Zip') ifs_zip,
+   nvl(tz.zip,'No Table Zip') table_zip,
+     coa.city,
+     coa.state,
+    coa.ship_addr_no,
+    coa.addr_flag single_occur,
+    co.objstate status,
+   -- COA.OBJID ,
+   -- COA.OBJVERSION ,
+    coa.county ifs_county,
+    TZ.COUNTY table_county 
+     FROM CUSTOMER_order_ADDRESS COA,
+     ifsinfo.TMP_ZC_TAB TZ ,
+     customer_order co
+     WHERE 
+     -- coa.order_no = 'C160486' and 
+     SUBSTR(COA.ZIP_CODE,0,5)= TZ.ZIP(+)  and coa.order_no = co.order_no and coa.addr_flag = 'Yes' 
+     and co.objstate not in ('Invoiced','Cancelled')
+     and coa.country_code = 'US';
