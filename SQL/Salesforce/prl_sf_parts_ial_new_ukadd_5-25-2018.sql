@@ -7,7 +7,8 @@
             MAX (MX_LIST_PRICE) MX_LIST_PRICE,
             MAX (UK_DESCRIPTION) UK_DESCRIPTION,
             MAX (UK_LIST_PRICE) UK_LIST_PRICE,
-            NAMEPLUSSITE
+            NAMEPLUSSITE,
+            SITE
        FROM (SELECT SALES_PART.CATALOG_NO AS PART_NO,
                     SALES_PART.CONTRACT AS SITE,
                     SALES_PART.CATALOG_DESC AS DESCR,
@@ -75,7 +76,8 @@
                     NULL AS MX_LIST_PRICE,
                     NULL AS UK_DESCRIPTION,
                     NULL AS UK_LIST_PRICE,
-                    SALES_PART.CATALOG_NO || 'MP' NAMEPLUSSITE
+                    SALES_PART.CATALOG_NO || 'MP' NAMEPLUSSITE,
+                    SALES_PART.CONTRACT
                FROM IFSAPP.SALES_PART SALES_PART
               WHERE     (SALES_PART.CONTRACT = 'MP')
                     AND (SALES_PART.ACTIVEIND_DB = 'Y')
@@ -147,7 +149,8 @@
                     NULL AS MX_LIST_PRICE,
                     SALES_PART.CATALOG_DESC AS UK_DESCRIPTION,
                     SALES_PART.LIST_PRICE AS UK_LIST_PRICE,
-                    SALES_PART.CATALOG_NO || 'BBG' AS NAMEPLUSSITE                    
+                    SALES_PART.CATALOG_NO || 'BBG' AS NAMEPLUSSITE,
+                    SALES_PART.CONTRACT                    
                FROM IFSAPP.SALES_PART SALES_PART
               WHERE     (SALES_PART.CONTRACT = 'BBG')
                     AND (SALES_PART.ACTIVEIND_DB = 'Y')
@@ -219,10 +222,10 @@
                     SALES_PART.LIST_PRICE AS MX_LIST_PRICE,
                     NULL AS UK_DESCRIPTION,
                     NULL AS UK_LIST_PRICE,
-                    SALES_PART.CATALOG_NO || 'MX' AS NAMEPLUSSITE
+                    SALES_PART.CATALOG_NO || 'MX' AS NAMEPLUSSITE,
+                    SALES_PART.CONTRACT
                FROM IFSAPP.SALES_PART SALES_PART
               WHERE     (SALES_PART.CONTRACT = 'MX')
                     AND (SALES_PART.ACTIVEIND_DB = 'Y'))
-       WHERE PART_NO LIKE 'DS-VW7%'
-   GROUP BY PART_NO, NAMEPLUSSITE
-   ORDER BY PART_NO, NAMEPLUSSITE
+   GROUP BY PART_NO, NAMEPLUSSITE, SITE
+   ORDER BY SITE, PART_NO
