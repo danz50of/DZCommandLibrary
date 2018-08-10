@@ -1,0 +1,71 @@
+-- set serveroutput   off  --
+-- set serveroutput on size 1000000  --
+--  .  
+-- 
+--  
+
+declare
+
+  Cursor GetCustomer is
+  SELECT a.customer_id,
+         a.address_id,
+         a.company,
+         a.tax_regime,
+         a.liability_type,
+         a.vat_free_vat_code,
+         a.OBJID,
+         a.OBJVERSION
+        
+        FROM  customer_info_vat  a
+         where a.company = '11'; 
+     --    and a.customer_id not in 
+      --   ('036346','007401','060656','111865','011800','011956','011935','011948','012050','024063','024063','030667','034550','036415','048846'
+    --  ,'052561','053449','060233','000013','059235','059113','059117','059402','059184','464549','060549','200000','059177','059155','059154'
+    --   ,'066324','062362');
+       
+  
+  ErrMess_        varchar2(200);
+  result_     varchar2(2000);
+  attr_       varchar2(2000);
+  tax_regime_           varchar2(100);
+  vat_free_vat_code_   varchar2(100);
+  customer_val_         varchar2(10);
+  liability_type_       varchar2(50);
+    
+
+  begin
+  For rec in GetCustomer   LOOP
+
+  --                      --
+  begin
+
+        result_ := NULL;
+        attr_   := NULL;
+        tax_regime_ := 'Sales Tax';
+        liability_type_ := 'TAX';
+        vat_free_vat_code_ := null;
+       
+         
+        customer_val_       := rec.customer_id;
+        Client_SYS.Add_To_Attr('TAX_REGIME',tax_regime_,attr_);
+        Client_SYS.Add_To_Attr('LIABILITY_TYPE',liability_type_,attr_);
+        Client_SYS.Add_To_Attr('VAT_FREE_VAT_CODE',vat_free_vat_code_,attr_);
+
+
+
+        CUSTOMER_INFO_VAT_API.MODIFY__(
+    result_
+        , rec.objid
+        , rec.objversion
+        , attr_
+        , 'DO');
+  commit;
+  exception
+  when others then
+        ErrMess_ := SUBSTR(sqlerrm,1,150);
+        dbms_output.enable(1000000);
+        dbms_output.put_line('Customer: ' || customer_val_ ||'  Error Message: '  || ErrMess_);
+  end;
+        END LOOP;
+end;
+

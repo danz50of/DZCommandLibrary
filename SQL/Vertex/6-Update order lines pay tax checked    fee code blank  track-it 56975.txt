@@ -1,0 +1,125 @@
+declare
+
+  Cursor GetOrderline1 is
+  select   a.order_no,
+  a.line_no,
+  a.customer_no,
+  a.date_entered,
+  a.contract,
+  a.vat_db,
+   a.vat_no,
+   a.fee_code,
+  a.state ,
+  a.objversion,
+  a.objid
+  from customer_order_line a
+  where
+  -- a.order_no = 'A884179' and
+  contract = 'MP' and a.state not in ('Invoiced/Closed','Cancelled')
+  and vat_db = 'N';
+   --   and customer_no in
+      -- ('059155');
+   --   ('036346','007401','060656','111865','011800','011956','011935','011948','012050','024063','024063','030667','034550','036415','048846'
+   --   ,'052561','053449','060233','000013','059235','059113','059117','059402','059184','464549','060549','200000','059177','059155','059154'
+    --   ,'066324','062362') order by a.customer_no,a.order_no,a.line_no;
+
+Cursor GetOrderline2 is
+  select   a.order_no,
+  a.line_no,
+  a.customer_no,
+  a.date_entered,
+  a.contract,
+  a.vat_db,
+   a.vat_no,
+   a.fee_code,
+  a.state ,
+  a.objversion,
+  a.objid
+  from customer_order_line a
+  where
+  -- a.order_no = 'A884179' and
+  contract = 'MP' and a.state not in ('Invoiced/Closed','Cancelled')
+  and fee_code is not null;
+  --  and customer_no in
+    -- ('059155');
+   -- ('036346','007401','060656','111865','011800','011956','011935','011948','012050','024063','024063','030667','034550','036415','048846'
+    --  ,'052561','053449','060233','000013','059235','059113','059117','059402','059184','464549','060549','200000','059177','059155','059154'
+   --    ,'066324','062362') order by a.customer_no,a.order_no,a.line_no;
+
+
+
+  ErrMess_        varchar2(200);
+  result_     varchar2(2000);
+  attr_       varchar2(2000);
+  vat_db_               varchar2(50);
+  order_no_             varchar2(20);
+  customer_val_          varchar2(20);
+  fee_code_             varchar2(20);
+
+
+  begin
+  For rec in GetOrderline1   LOOP
+
+
+  --                      --
+  begin
+
+        result_ := NULL;
+        attr_   := NULL;
+        vat_db_ := 'Y';
+
+
+        customer_val_       := rec.customer_no;
+        order_no_           := rec.order_no;
+        Client_SYS.Add_To_Attr('VAT_DB',vat_db_,attr_);
+
+
+        CUSTOMER_ORDER_LINE_API.MODIFY__(
+    result_
+        , rec.objid
+        , rec.objversion
+        , attr_
+        , 'DO');
+  commit;
+  exception
+  when others then
+        ErrMess_ := SUBSTR(sqlerrm,1,150);
+        dbms_output.enable(1000000); 
+  dbms_output.put_line('Order Pay Tax:' || ORDER_NO_ || '-' || rec.line_no || '-' || customer_val_ ||'    Error Message:  '  || ErrMess_);
+  end;
+        END LOOP;
+
+ For rec in GetOrderline2   LOOP
+
+
+  --                      --
+  begin
+
+        result_ := NULL;
+        attr_   := NULL;
+        fee_code_ := NULL;
+
+
+        customer_val_       := rec.customer_no;
+        order_no_           := rec.order_no;
+        Client_SYS.Add_To_Attr('FEE_CODE',fee_code_,attr_);
+
+
+        CUSTOMER_ORDER_LINE_API.MODIFY__(
+    result_
+        , rec.objid
+        , rec.objversion
+        , attr_
+        , 'DO');
+  commit;
+  exception
+  when others then
+        ErrMess_ := SUBSTR(sqlerrm,1,150);
+       dbms_output.enable(1000000);  
+  dbms_output.put_line('Order Tax Code:' || ORDER_NO_ || '-' || rec.line_no || '-'  || customer_val_ ||'    Error Message:  '  || ErrMess_);
+  end;
+        END LOOP;
+
+
+
+end;
