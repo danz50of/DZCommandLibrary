@@ -1,0 +1,1 @@
+SELECT count(*) FROM analytics.Company_Sales;
