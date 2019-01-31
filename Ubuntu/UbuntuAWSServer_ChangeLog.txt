@@ -1,0 +1,9 @@
+*************************************************************************
+*																		*
+*    Author: Dan Zabinski												*
+*      File: AWS Ubuntu Server change Log (UbuntuAWSServer_ChangeLog.txt*
+*   Purpose: Document changes and running logs of the AWS Ubuntu server *
+*																		*
+*   Created: 8/1/2016													*
+*																		*
+*************************************************************************

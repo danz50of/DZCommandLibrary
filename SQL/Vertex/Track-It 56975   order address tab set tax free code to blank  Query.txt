@@ -1,0 +1,28 @@
+SELECT
+    coa.customer_no,
+    ifsapp.customer_info_api.get_name(coa.order_no) name,
+    coa.order_no,
+    coa.vat_free_vat_code,
+    co.state order_state,
+   trunc(co.date_entered) ord_header_date,
+   nvl(coa.zip_code,'No IFS Zip') ifs_zip,
+   coa.state ,
+    coa.ship_addr_no,
+    coa.addr_flag single_occurence,
+    COA.OBJID ,
+    COA.OBJVERSION ,
+    coa.county ifs_county
+    
+     FROM CUSTOMER_order_ADDRESS COA,
+     customer_order co
+     WHERE 
+     --  coa.order_no in  ('C940411','A857633')  AND 
+      coa.order_no = co.order_no 
+       -- and to_char(co.date_entered,'YYYYMM') = '201708'
+     and coa.country_code = 'US'      AND CO.STATE NOT IN ('Cancelled','Invoiced/Closed')
+     and coa.vat_free_vat_code is not null; 
+    --  and coa.addr_flag = 'No'; 
+    -- and coa.customer_no in
+    --  ('036346','007401','060656','111865','011800','011956','011935','011948','012050','024063','024063','030667','034550','036415','048846'
+     -- ,'052561','053449','060233','000013','059235','059113','059117','059402','059184','464549','060549','200000','059177','059155','059154'
+     --  ,'066324','062362');

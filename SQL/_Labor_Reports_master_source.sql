@@ -53,7 +53,8 @@
                 ELSE
                    0
              END)
-               PTS_RUN
+               PTS_RUN,
+               NOTE_TEXT
        FROM (SELECT a.org_code,
                     a.emp_no,
                     a.emp_name,
@@ -257,13 +258,26 @@
                     IFSAPP.phase_in_account_date (a.part_no,
                                                   'MP',
                                                   a.account_date)
-                       phase_in_date_to_use
+                       phase_in_date_to_use,
+               (SELECT g.NOTE_TEXT
+                       FROM IFSAPP.routing_operation g
+                      WHERE     g.part_no = a.part_no
+                            AND a.op_no = g.operation_no
+                            AND g.phase_in_date =
+                                   IFSAPP.phase_in_account_date (
+                                      a.part_no,
+                                      'MP',
+                                      a.account_date)
+                            AND g.alternative_no = '*'
+                            AND g.contract = 'MP'
+                            AND g.bom_type_db <> 'F'
+                            AND (g.note_text like 'MS%' or g.note_text like 'TS%')) NOTE_TEXT
                FROM ifsinfo.labor_by_operation_ial a,
                     IFSAPP.shop_ord b,
                     IFSAPP.work_center_cost c,
                     IFSAPP.labor_class_cost d,
                     IFSAPP.part_cost e
-              WHERE     TO_CHAR (account_date, 'yyyymm') >= '201601'
+               where a.account_date >= to_date('1/1/2016','mm/dd/yyyy')
                     AND b.contract = 'MP'
                     AND c.contract = 'MP'
                     AND d.contract = 'MP'
@@ -288,7 +302,8 @@
             work_center_description,
             shop_ord_run_code,
             routing_run_code,
-            phase_in_date_to_use
+            phase_in_date_to_use,
+            NOTE_TEXT
    ORDER BY org_code,
             emp_name,
             order_no,
