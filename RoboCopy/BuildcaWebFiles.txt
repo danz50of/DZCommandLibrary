@@ -1,0 +1,1 @@
+robocopy \\10.100.3.75\D$\bkup\prod\oradata\*.* \\10.100.3.175\c$\orafilescopied <> /s /mt1 /log:dz_copy_log.txt
