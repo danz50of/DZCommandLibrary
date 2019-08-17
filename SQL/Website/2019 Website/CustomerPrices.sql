@@ -89,8 +89,8 @@ customer_pricelist a,
 sales_price_list_part c,
 IFSINFO.CUSTOMER_PRICE_LIST_NEW2_IAL d
 where
-a.customer_no in ('034950')--in ('422660', '422661','827730','827731','836540','836541','810200','100149') 
-and
+--a.customer_no in ('034950')--in ('422660', '422661','827730','827731','836540','836541','810200','100149') 
+--and
 a.price_list_no = c.price_list_no
 and c.catalog_no = d.SALES_PART_NO(+)
 and a.sales_price_group_id <> 'PRO'
