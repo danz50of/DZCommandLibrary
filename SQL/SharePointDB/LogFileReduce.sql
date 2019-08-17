@@ -1,0 +1,4 @@
+USE WSS_Content_MySite
+GO
+BACKUP LOG WSS_Content_MySite WITH TRUNCATE_ONLY
+GO

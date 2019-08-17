@@ -1,0 +1,1 @@
+select field1 as Sales_Price_Group, field2 as Sales_Part, num16 as list_price, num17 as Deal, num18 as partner, num19 as disty, num20 as special from ifsinfo.price_load_2019
