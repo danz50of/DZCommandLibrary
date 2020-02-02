@@ -1,12 +1,12 @@
 CREATE TABLE EOM_2018 (
-    AccountNumber varchar(10),
+    AccountNumber varchar(20),
     AccountName varchar(255),
     City varchar(255),
-    State varchar(2),
-    Zip varchar(5),
-    NationalDirector varchar(10),
-    Rep varchar(10),
-    Year Date(6),
+    State varchar(20),
+    Zip varchar(20),
+    NationalDirector varchar(20),
+    Rep varchar(20),
+    Year Date,
     Year_Char varchar(4),
     Year_Gross float,
     Year_Net float
