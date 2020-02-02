@@ -1,4 +1,4 @@
-CREATE TABLE EOM_2018 (
+CREATE TABLE EOM_2019 (
     AccountNumber varchar(20),
     AccountName varchar(255),
     City varchar(255),
@@ -13,3 +13,4 @@ CREATE TABLE EOM_2018 (
 );
 
 --DZ  2-2-2020:  Create 2018 EOM table to begin analytics for 2018 v 2019
+--               When creating new tables, use script, change year!!
