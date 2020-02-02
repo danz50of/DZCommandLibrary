@@ -1,0 +1,2 @@
+select sum(YEAR_GROSS), SUM(YEAR_NET)
+FROM EOM_2018;
