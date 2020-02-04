@@ -1,4 +1,4 @@
-CREATE TABLE EOM_2019 (
+CREATE TABLE Gross_Part_2019 (
     Part varchar(255),
     Sales_Group varchar(15),
     Sales_Group_Desc varchar(255),
