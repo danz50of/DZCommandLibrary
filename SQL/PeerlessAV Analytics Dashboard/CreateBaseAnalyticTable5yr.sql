@@ -1,7 +1,7 @@
 USE [Peerless-AVAnalytics]
 GO
 
-/****** Object:  Table [dbo].[EOM_2020]    Script Date: 2/3/2020 6:05:19 PM ******/
+/****** Object:  Table [dbo].[EOM_Rolling_5YR]    Script Date: 2/3/2020 6:05:19 PM ******/
 SET ANSI_NULLS ON
 GO
 

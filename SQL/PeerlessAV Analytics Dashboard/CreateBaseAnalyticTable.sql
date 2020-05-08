@@ -1,4 +1,4 @@
-CREATE TABLE EOM_2019 (
+CREATE TABLE EOM_2020 (
     AccountNumber varchar(20),
     AccountName varchar(255),
     City varchar(255),

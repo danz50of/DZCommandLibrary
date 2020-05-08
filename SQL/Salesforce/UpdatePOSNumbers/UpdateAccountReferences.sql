@@ -1,0 +1,6 @@
+select * from ifsinfo.PIVOT_ROLLING_YR_OVER_YR_IAL
+where identity in ('POS2041','277670')
+
+
+
+SELECT * FROM IFSINFO.POS_TAB WHERE CUST_NUMBER = '277670'
