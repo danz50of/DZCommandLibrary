@@ -143,6 +143,9 @@
           <GIResult LineNbr="6" SortOrder="6" IsActive="1" Field="stdCost" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="8aac9010-0618-43d5-ab04-52af3756b0cb" />
         </GITable>
         <GITable Alias="InventoryItem" Name="PX.Objects.IN.InventoryItem">
+          <GIRelation LineNbr="4" ChildTable="AISINOverhead" IsActive="1" JoinType="L">
+            <GIOn LineNbr="5" ParentField="usrAISOverheadID" Condition="E" ChildField="overheadID" Operation="A" />
+          </GIRelation>
           <GIRelation LineNbr="3" ChildTable="InventoryItemCurySettings" IsActive="1" JoinType="I">
             <GIOn LineNbr="4" ParentField="inventoryID" Condition="E" ChildField="inventoryID" Operation="A" />
           </GIRelation>
@@ -153,7 +156,10 @@
           <GIRelation LineNbr="1" ChildTable="INSiteStatus" IsActive="1" JoinType="I">
             <GIOn LineNbr="1" ParentField="inventoryID" Condition="E" ChildField="inventoryID" Operation="A" />
           </GIRelation>
-          <GIResult LineNbr="18" SortOrder="18" IsActive="1" Field="=[INSiteStatus.QtyOnHand] * [AMBomCost.StdCost]" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="a8527d78-f315-4453-b40a-12e5aa138395" />
+          <GIResult LineNbr="21" SortOrder="21" IsActive="1" Field="=0" Caption="Freight" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="984bd347-e68a-4186-912f-3a0c874e48dc" />
+          <GIResult LineNbr="20" SortOrder="20" IsActive="1" Field="=0" Caption="Tarrif" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="2ec0d4b4-ee6c-4c46-8fa9-a2898cb04cd7" />
+          <GIResult LineNbr="19" SortOrder="19" IsActive="1" Field="=0" Caption="Overhead" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="b095aa9e-d31f-428e-ac42-1b51aa3f6218" />
+          <GIResult LineNbr="18" SortOrder="18" IsActive="1" Field="=[INSiteStatus.QtyOnHand] * [InventoryItemCurySettings.StdCost]" Caption="Ext Std Cost" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="a8527d78-f315-4453-b40a-12e5aa138395" />
           <GIResult LineNbr="9" SortOrder="9" IsActive="1" Field="usrAISMaterialCost" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="41a74552-8142-4c8f-bf0a-610d714d21da" />
           <GIResult LineNbr="8" SortOrder="8" IsActive="1" Field="usrAISOverheadID" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="0e3177a4-beb1-4115-bf8a-f438ce70eaa6" />
           <GIResult LineNbr="5" SortOrder="5" IsActive="1" Field="itemClassID" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="0767e7e2-6fa1-456a-a7fe-89874604c705" />
@@ -174,6 +180,7 @@
           <GIResult LineNbr="11" SortOrder="11" IsActive="1" Field="matlManufacturedCost" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="3337eb4b-e015-47cf-b46e-271287438de0" />
           <GIResult LineNbr="10" SortOrder="10" IsActive="1" Field="matlCost" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="6bfe50a1-bb9d-401b-88f4-1936450b13c1" />
         </GITable>
+        <GITable Alias="AISINOverhead" Name="AIS.Acumatica.IN.AISINOverhead" />
       </row>
     </GIDesign>
   </data>
