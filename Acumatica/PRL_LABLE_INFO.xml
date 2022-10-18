@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<data-set>
+  <relations format-version="3" relations-version="20160101" main-table="SYProvider">
+    <link from="SYProvider (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="SYProviderField (ProviderID)" to="SYProvider (ProviderID)" />
+    <link from="SYProviderField (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="SYProviderObject (ProviderID)" to="SYProvider (ProviderID)" />
+    <link from="SYProviderObject (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="SYProviderParameter (ProviderID)" to="SYProvider (ProviderID)" />
+    <link from="SYProviderParameter (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="NoteDoc (NoteID)" to="SYProvider (NoteID)" />
+    <link from="UploadFile (FileID)" to="NoteDoc (FileID)" />
+    <link from="UploadFile (FileID, LastRevisionID)" to="UploadFileRevision (FileID, FileRevisionID)" type="LastRevision" />
+  </relations>
+  <layout>
+    <table name="SYProvider">
+      <table name="SYProviderField" uplink="(ProviderID) = (ProviderID)">
+        <table name="Note" uplink="(NoteID) = (NoteID)" />
+      </table>
+      <table name="SYProviderObject" uplink="(ProviderID) = (ProviderID)">
+        <table name="Note" uplink="(NoteID) = (NoteID)" />
+      </table>
+      <table name="SYProviderParameter" uplink="(ProviderID) = (ProviderID)">
+        <table name="Note" uplink="(NoteID) = (NoteID)" />
+      </table>
+      <table name="NoteDoc" uplink="(NoteID) = (NoteID)">
+        <table name="UploadFile" uplink="(FileID) = (FileID)">
+          <table name="UploadFileRevision" uplink="(FileID, LastRevisionID) = (FileID, FileRevisionID)" />
+        </table>
+      </table>
+      <table name="Note" uplink="(NoteID) = (NoteID)" />
+    </table>
+  </layout>
+  <data>
+    <SYProvider>
+      <row ProviderID="451ceb2f-5e3f-4906-9944-9338a723314e" Name="PRL_LABLE_INFO" IsActive="1" ProviderType="PX.DataSync.MSSqlSYProvider" ObjectCntr="3" ParameterCntr="7">
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="61" IsActive="1" Name="ZBOX3" DisplayName="ZBOX3" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="60" IsActive="1" Name="ZBOX2" DisplayName="ZBOX2" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="59" IsActive="1" Name="ZBOX1" DisplayName="ZBOX1" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="22" IsActive="1" Name="Z_UL" DisplayName="Z_UL" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="19" IsActive="1" Name="YUPCS" DisplayName="YUPCS" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="23" IsActive="1" Name="YUPCM" DisplayName="YUPCM" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="62" IsActive="1" Name="YPWK" DisplayName="YPWK" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="63" IsActive="1" Name="YPDM" DisplayName="YPDM" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="18" IsActive="1" Name="YPART" DisplayName="YPART" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="21" IsActive="1" Name="YOPEN" DisplayName="YOPEN" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="20" IsActive="1" Name="YNAME" DisplayName="YNAME" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="24" IsActive="1" Name="YDESC" DisplayName="YDESC" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="9" IsActive="1" Name="WIDTH" DisplayName="WIDTH" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="36" IsActive="1" Name="WGCAP" DisplayName="WGCAP" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="38" IsActive="1" Name="WDCAP" DisplayName="WDCAP" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="17" IsActive="1" Name="UPCM2" DisplayName="UPCM2" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="16" IsActive="1" Name="UPCM" DisplayName="UPCM" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="15" IsActive="1" Name="UPC" DisplayName="UPC" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="6" IsActive="1" Name="TEMPLATE" DisplayName="TEMPLATE" IsKey="0" DataType="System.String" DataLength="59" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="40" IsActive="1" Name="SMAX" DisplayName="SMAX" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="14" IsActive="1" Name="SKIDQ" DisplayName="SKIDQ" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="65" IsActive="1" Name="RPWR" DisplayName="RPWR" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="68" IsActive="1" Name="PTUS4" DisplayName="PTUS4" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="43" IsActive="1" Name="PTUS3" DisplayName="PTUS3" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="42" IsActive="1" Name="PTUS2" DisplayName="PTUS2" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="41" IsActive="1" Name="PTUS1" DisplayName="PTUS1" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="54" IsActive="1" Name="PTTW1" DisplayName="PTTW1" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="52" IsActive="1" Name="PTSK1" DisplayName="PTSK1" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="53" IsActive="1" Name="PTRU1" DisplayName="PTRU1" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="56" IsActive="1" Name="PTNZ1" DisplayName="PTNZ1" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="45" IsActive="1" Name="PTMX1" DisplayName="PTMX1" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="57" IsActive="1" Name="PTIN1" DisplayName="PTIN1" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="49" IsActive="1" Name="PTHK1" DisplayName="PTHK1" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="48" IsActive="1" Name="PTEU3" DisplayName="PTEU3" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="47" IsActive="1" Name="PTEU2" DisplayName="PTEU2" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="46" IsActive="1" Name="PTEU1" DisplayName="PTEU1" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="51" IsActive="1" Name="PTCH2" DisplayName="PTCH2" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="50" IsActive="1" Name="PTCH1" DisplayName="PTCH1" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="44" IsActive="1" Name="PTCA1" DisplayName="PTCA1" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="55" IsActive="1" Name="PTAU1" DisplayName="PTAU1" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="67" IsActive="1" Name="PNWGT" DisplayName="PNWGT" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="66" IsActive="1" Name="PGWGT" DisplayName="PGWGT" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="2" IsActive="1" Name="PART_STATUS" DisplayName="PART_STATUS" IsKey="0" DataType="System.String" DataLength="50" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="1" IsActive="1" Name="PART_NO" DisplayName="PART_NO" IsKey="0" DataType="System.String" DataLength="50" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="28" IsActive="1" Name="MPQTY" DisplayName="MPQTY" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="35" IsActive="1" Name="MPQT8" DisplayName="MPQT8" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="34" IsActive="1" Name="MPQT7" DisplayName="MPQT7" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="33" IsActive="1" Name="MPQT6" DisplayName="MPQT6" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="32" IsActive="1" Name="MPQT5" DisplayName="MPQT5" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="31" IsActive="1" Name="MPQT4" DisplayName="MPQT4" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="30" IsActive="1" Name="MPQT3" DisplayName="MPQT3" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="29" IsActive="1" Name="MPQT2" DisplayName="MPQT2" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="70" IsActive="1" Name="MODEL" DisplayName="MODEL" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="8" IsActive="1" Name="LENG" DisplayName="LENG" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="26" IsActive="1" Name="LCLR" DisplayName="LCLR" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="71" IsActive="1" Name="IEYNECDESC" DisplayName="IEYNECDESC" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="39" IsActive="1" Name="HRNGE" DisplayName="HRNGE" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="10" IsActive="1" Name="HEIGHT" DisplayName="HEIGHT" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="64" IsActive="1" Name="FUSE" DisplayName="FUSE" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="25" IsActive="1" Name="DUPC" DisplayName="DUPC" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="27" IsActive="1" Name="DUL" DisplayName="DUL" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="7" IsActive="1" Name="DESCRIPTION" DisplayName="DESCRIPTION" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="37" IsActive="1" Name="CWCAP" DisplayName="CWCAP" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="5" IsActive="1" Name="CURRENT_ACTIVE_REV" DisplayName="CURRENT_ACTIVE_REV" IsKey="0" DataType="System.Int32" DataLength="4" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="3" IsActive="1" Name="COUNTRY_OF_ORIGIN" DisplayName="COUNTRY_OF_ORIGIN" IsKey="0" DataType="System.String" DataLength="50" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="4" IsActive="1" Name="COUNTRY_DEF" DisplayName="COUNTRY_DEF" IsKey="0" DataType="System.String" DataLength="54" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="13" IsActive="1" Name="COO" DisplayName="COO" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="69" IsActive="1" Name="COMPN" DisplayName="COMPN" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="12" IsActive="1" Name="COLOR" DisplayName="COLOR" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="58" IsActive="1" Name="BXTP" DisplayName="BXTP" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderField ObjectName="product_label_info_IAL" LineNbr="11" IsActive="1" Name="BOMR" DisplayName="BOMR" IsKey="0" DataType="System.String" DataLength="255" IsCustom="0" />
+        <SYProviderObject LineNbr="3" IsActive="1" Name="product_label_info_IAL" FieldCntr="71" IsCustom="0" />
+        <SYProviderObject LineNbr="2" IsActive="0" Name="inventory_item" FieldCntr="0" IsCustom="0" />
+        <SYProviderObject LineNbr="1" IsActive="0" Name="ifs_char_to_acumatica_v1" FieldCntr="0" IsCustom="0" />
+        <SYProviderParameter LineNbr="7" Name="Authentication" DisplayName="The authentication type to be used to connect to the server" Value="False" IsEncrypted="0" />
+        <SYProviderParameter LineNbr="6" Name="CreatedDateColumn" DisplayName="A column that contains the record’s creation date" Value="" IsEncrypted="0" />
+        <SYProviderParameter LineNbr="5" Name="LastModifiedDateColumn" DisplayName="A column that contains the record’s last modification date" Value="" IsEncrypted="0" />
+        <SYProviderParameter LineNbr="4" Name="Password" DisplayName="The password for accessing the database" Value="VgBhAGQAZQByAEwAbwByAGQAMAAxACEAQAA=" IsEncrypted="1" />
+        <SYProviderParameter LineNbr="3" Name="Login" DisplayName="The login for accessing the database" Value="danz50of" IsEncrypted="0" />
+        <SYProviderParameter LineNbr="2" Name="Database" DisplayName="The name of the database on the server" Value="prl_label_info" IsEncrypted="0" />
+        <SYProviderParameter LineNbr="1" Name="Server" DisplayName="The location of the SQL Server instance" Value="pdbc0111us.cyrw7j12jeft.us-east-1.rds.amazonaws.com" IsEncrypted="0" />
+      </row>
+    </SYProvider>
+  </data>
+</data-set>
