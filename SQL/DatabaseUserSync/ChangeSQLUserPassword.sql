@@ -1,0 +1,3 @@
+USE EDI_PTM
+
+ALTER LOGIN ptm_sqlgentran WITH PASSWORD = 'EDI2024Trans';
