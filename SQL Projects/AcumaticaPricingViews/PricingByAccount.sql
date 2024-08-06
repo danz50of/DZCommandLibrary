@@ -16,6 +16,22 @@ select TSCustomerPriceGroup.CompanyID, TSCustomerPriceGroup.Description as "Cust
 , ARSalesPrice.ExpirationDate
 , (select B.SalesPrice from ARSalesPrice B where B.CompanyID = ARSalesPrice.CompanyID and ARSalesPrice.InventoryID = B.InventoryID and B.CustPriceClassID = 'MAPCA' and B.EffectiveDate = '4/12/2024') AS "MAP CA"
 , (select B.SalesPrice from ARSalesPrice B where B.CompanyID = ARSalesPrice.CompanyID and ARSalesPrice.InventoryID = B.InventoryID and B.CustPriceClassID = 'MAPUS' and B.EffectiveDate = '4/12/2024') AS "MAP NA"
+, InventoryItem.BasePrice
+, ARSalesPrice.EffectiveDate
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='PMUPC'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Universal Product Code"
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='IECOO'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Country Of Origin"
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='IE1LENG'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Length (in)"
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='IE2WIDH'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Width (in)"
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='IE3HGHT'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Height (in)"
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='IEPGWGT'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Ship Weight (lb)"
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='PMRTN'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Returnable / Cancellable"
 from TSCustomerPriceGroup, BAccount, TSPriceGroup, InventoryItem, ARSalesPrice
 where TSCustomerPriceGroup.CompanyID = 2
 and TSCustomerPriceGroup.CompanyID = BAccount.CompanyID
@@ -24,10 +40,12 @@ and TSCustomerPriceGroup.CompanyID = TSPriceGroup.CompanyID
 and TSCustomerPriceGroup.PriceGroupID = TSPriceGroup.RecID
 and inventoryitem.CompanyID = TSCustomerPriceGroup.CompanyID
 and InventoryItem.usrPriceGroupID = TSCustomerPriceGroup.PriceGroupID
-and BAccount.AcctCD in ('DIV186550', 'BHP074571')
+--and BAccount.AcctCD in ('DIV186550', 'BHP074571')
 and InventoryItem.InventoryID = ARSalesPrice.InventoryID
 and ARSalesprice.CompanyID = TSCustomerPriceGroup.CompanyID
 and arsalesprice.CustPriceClassID = TSCustomerPriceGroup.PriceClassID
+and arsalesprice.EffectiveDate <= (select max (DT.EffectiveDate) from ArSalesPrice DT where EffectiveDate <= SYSDATETIME())
+and (arsalesprice.ExpirationDate >= SYSDATETIME() or arsalesprice.expirationdate is null)
 --and InventoryItem.InventoryCD = 'ST660'
 Union
 select BAccount.CompanyID, BAccount.AcctName, BAccount.AcctCD, 'Customer Pricing', InventoryItem.InventoryCD, InventoryItem.Descr, TSPriceGroup.PriceGroupDescription, arsalesprice.SalesPrice
@@ -42,17 +60,29 @@ select BAccount.CompanyID, BAccount.AcctName, BAccount.AcctCD, 'Customer Pricing
 , ARSalesPrice.ExpirationDate
 , (select C.SalesPrice from ARSalesPrice C where C.CompanyID = ARSalesPrice.CompanyID and ARSalesPrice.InventoryID = C.InventoryID and C.CustPriceClassID = 'MAPCA' and c.EffectiveDate = '4/12/2024') AS "MAP CA"
 , (select C.SalesPrice from ARSalesPrice C where C.CompanyID = ARSalesPrice.CompanyID and ARSalesPrice.InventoryID = C.InventoryID and C.CustPriceClassID = 'MAPUS' and c.EffectiveDate = '4/12/2024') AS "MAP NA"
+, InventoryItem.BasePrice
+, ARSalesPrice.EffectiveDate
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='PMUPC'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Universal Product Code"
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='IECOO'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Country Of Origin"
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='IE1LENG'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Length (in)"
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='IE2WIDH'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Width (in)"
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='IE3HGHT'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Height (in)"
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='IEPGWGT'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Ship Weight (lb)"
+,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='PMRTN'
+	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Returnable / Cancellable"
 from BAccount, TSPriceGroup, InventoryItem, ARSalesPrice
 where BAccount.CompanyID = 2
 and ARSalesPrice.CustomerID = BAccount.BAccountID
 and BAccount.CompanyID = TSPriceGroup.CompanyID
 and inventoryitem.CompanyID = BAccount.CompanyID
-and BAccount.AcctCD in ('DIV186550', 'BHP074571')
+--and BAccount.AcctCD in ('DIV186550', 'BHP074571')
 and InventoryItem.InventoryID = ARSalesPrice.InventoryID
 --and InventoryItem.InventoryCD = 'ST660'
 and inventoryItem.UsrPriceGroupID = TSPriceGroup.RecID
-
-
-
-
-
+and (arsalesprice.ExpirationDate >= SYSDATETIME() or arsalesprice.expirationdate is null)
