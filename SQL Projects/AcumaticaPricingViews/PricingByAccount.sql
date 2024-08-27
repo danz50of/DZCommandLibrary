@@ -14,8 +14,8 @@ select TSCustomerPriceGroup.CompanyID, TSCustomerPriceGroup.Description as "Cust
 		when 'DE' then 'Marked for Deletion'
    End)as "Item Status"
 , ARSalesPrice.ExpirationDate
-, (select B.SalesPrice from ARSalesPrice B where B.CompanyID = ARSalesPrice.CompanyID and ARSalesPrice.InventoryID = B.InventoryID and B.CustPriceClassID = 'MAPCA' and B.EffectiveDate = '4/12/2024') AS "MAP CA"
-, (select B.SalesPrice from ARSalesPrice B where B.CompanyID = ARSalesPrice.CompanyID and ARSalesPrice.InventoryID = B.InventoryID and B.CustPriceClassID = 'MAPUS' and B.EffectiveDate = '4/12/2024') AS "MAP NA"
+, (select B.SalesPrice from ARSalesPrice B where B.CompanyID = ARSalesPrice.CompanyID and ARSalesPrice.InventoryID = B.InventoryID and B.CustPriceClassID = 'MAPCA' and B.EffectiveDate = (select max(Z.effectiveDate) from ARSalesPrice Z where Z.CompanyID = ARSalesPrice.CompanyID and Z.InventoryID = ARSalesPrice.InventoryID and Z.CustPriceClassID = 'MAPCA')) AS "MAP CA"
+, (select B.SalesPrice from ARSalesPrice B where B.CompanyID = ARSalesPrice.CompanyID and ARSalesPrice.InventoryID = B.InventoryID and B.CustPriceClassID = 'MAPUS' and B.EffectiveDate = (select max(Z.effectiveDate) from ARSalesPrice Z where Z.CompanyID = ARSalesPrice.CompanyID and Z.InventoryID = ARSalesPrice.InventoryID and Z.CustPriceClassID = 'MAPUS')) AS "MAP NA"
 , InventoryItem.BasePrice
 , ARSalesPrice.EffectiveDate
 ,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='PMUPC'
@@ -44,9 +44,9 @@ and InventoryItem.usrPriceGroupID = TSCustomerPriceGroup.PriceGroupID
 and InventoryItem.InventoryID = ARSalesPrice.InventoryID
 and ARSalesprice.CompanyID = TSCustomerPriceGroup.CompanyID
 and arsalesprice.CustPriceClassID = TSCustomerPriceGroup.PriceClassID
-and arsalesprice.EffectiveDate <= (select max (DT.EffectiveDate) from ArSalesPrice DT where EffectiveDate <= SYSDATETIME())
-and (arsalesprice.ExpirationDate >= SYSDATETIME() or arsalesprice.expirationdate is null)
---and InventoryItem.InventoryCD = 'ST660'
+and arsalesprice.EffectiveDate = (select max(Z.effectiveDate) from ARSalesPrice Z where Z.CompanyID = ARSalesPrice.CompanyID and Z.InventoryID = ARSalesPrice.InventoryID and Z.CustPriceClassID = arsalesprice.CustPriceClassID)
+and (arsalesprice.ExpirationDate >= '2024-10-01' or arsalesprice.expirationdate is null)
+--and InventoryItem.InventoryCD = 'ACC310VWC4'
 Union
 select BAccount.CompanyID, BAccount.AcctName, BAccount.AcctCD, 'Customer Pricing', InventoryItem.InventoryCD, InventoryItem.Descr, TSPriceGroup.PriceGroupDescription, arsalesprice.SalesPrice
 , (CASE InventoryItem.ItemStatus
@@ -58,8 +58,8 @@ select BAccount.CompanyID, BAccount.AcctName, BAccount.AcctCD, 'Customer Pricing
 		when 'DE' then 'Marked for Deletion'
    End)
 , ARSalesPrice.ExpirationDate
-, (select C.SalesPrice from ARSalesPrice C where C.CompanyID = ARSalesPrice.CompanyID and ARSalesPrice.InventoryID = C.InventoryID and C.CustPriceClassID = 'MAPCA' and c.EffectiveDate = '4/12/2024') AS "MAP CA"
-, (select C.SalesPrice from ARSalesPrice C where C.CompanyID = ARSalesPrice.CompanyID and ARSalesPrice.InventoryID = C.InventoryID and C.CustPriceClassID = 'MAPUS' and c.EffectiveDate = '4/12/2024') AS "MAP NA"
+, (select C.SalesPrice from ARSalesPrice C where C.CompanyID = ARSalesPrice.CompanyID and ARSalesPrice.InventoryID = C.InventoryID and C.CustPriceClassID = 'MAPCA' and c.EffectiveDate = (select max(Z.effectiveDate) from ARSalesPrice Z where Z.CompanyID = ARSalesPrice.CompanyID and Z.InventoryID = ARSalesPrice.InventoryID and Z.CustPriceClassID = 'MAPCA')) AS "MAP CA"
+, (select C.SalesPrice from ARSalesPrice C where C.CompanyID = ARSalesPrice.CompanyID and ARSalesPrice.InventoryID = C.InventoryID and C.CustPriceClassID = 'MAPUS' and c.EffectiveDate = (select max(Z.effectiveDate) from ARSalesPrice Z where Z.CompanyID = ARSalesPrice.CompanyID and Z.InventoryID = ARSalesPrice.InventoryID and Z.CustPriceClassID = 'MAPUS')) AS "MAP CA"
 , InventoryItem.BasePrice
 , ARSalesPrice.EffectiveDate
 ,(select CSAnswers.Value as UPC from InventoryItem itm left join CSAnswers on itm.CompanyID=CSAnswers.CompanyID and itm.NoteID = CSAnswers.RefNoteID  and CSAnswers.AttributeID='PMUPC'
@@ -83,6 +83,7 @@ and BAccount.CompanyID = TSPriceGroup.CompanyID
 and inventoryitem.CompanyID = BAccount.CompanyID
 --and BAccount.AcctCD in ('DIV186550', 'BHP074571')
 and InventoryItem.InventoryID = ARSalesPrice.InventoryID
---and InventoryItem.InventoryCD = 'ST660'
+--and InventoryItem.InventoryCD = 'ACC310VWC4'
 and inventoryItem.UsrPriceGroupID = TSPriceGroup.RecID
-and (arsalesprice.ExpirationDate >= SYSDATETIME() or arsalesprice.expirationdate is null)
+and (arsalesprice.ExpirationDate >= '2024-10-01' or arsalesprice.expirationdate is null)
+and arsalesprice.EffectiveDate = (select max(Z.effectiveDate) from ARSalesPrice Z where Z.CompanyID = ARSalesPrice.CompanyID and Z.InventoryID = ARSalesPrice.InventoryID and Z.CustPriceClassID = arsalesprice.CustPriceClassID)
