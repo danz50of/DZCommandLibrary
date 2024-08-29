@@ -3,6 +3,7 @@
  * 7-30-2024:  SQL will pull pricing by account, listing all products with  *
  *             price groups, and then all account specific pricing.         *
  *																			*
+ * 8-29-2024:  Updated to correct for customer pricing including date logic *
  ***************************************************************************/
 select TSCustomerPriceGroup.CompanyID, TSCustomerPriceGroup.Description as "Customer Name", BAccount.AcctCD as "Customer", TSCustomerpriceGroup.PriceClassID as "Customer Price Class", InventoryItem.InventoryCD as "Part Number", InventoryItem.Descr as "Description", TSPriceGroup.PriceGroupDescription as "Product Group", arsalesprice.SalesPrice as "Price"
 , (CASE InventoryItem.ItemStatus
@@ -40,13 +41,13 @@ and TSCustomerPriceGroup.CompanyID = TSPriceGroup.CompanyID
 and TSCustomerPriceGroup.PriceGroupID = TSPriceGroup.RecID
 and inventoryitem.CompanyID = TSCustomerPriceGroup.CompanyID
 and InventoryItem.usrPriceGroupID = TSCustomerPriceGroup.PriceGroupID
---and BAccount.AcctCD in ('DIV186550', 'BHP074571')
+--and BAccount.AcctCD in ('KNI499759')
 and InventoryItem.InventoryID = ARSalesPrice.InventoryID
 and ARSalesprice.CompanyID = TSCustomerPriceGroup.CompanyID
 and arsalesprice.CustPriceClassID = TSCustomerPriceGroup.PriceClassID
 and arsalesprice.EffectiveDate = (select max(Z.effectiveDate) from ARSalesPrice Z where Z.CompanyID = ARSalesPrice.CompanyID and Z.InventoryID = ARSalesPrice.InventoryID and Z.CustPriceClassID = arsalesprice.CustPriceClassID)
 and (arsalesprice.ExpirationDate >= '2024-10-01' or arsalesprice.expirationdate is null)
---and InventoryItem.InventoryCD = 'ACC310VWC4'
+--and InventoryItem.InventoryCD = 'SF640'
 Union
 select BAccount.CompanyID, BAccount.AcctName, BAccount.AcctCD, 'Customer Pricing', InventoryItem.InventoryCD, InventoryItem.Descr, TSPriceGroup.PriceGroupDescription, arsalesprice.SalesPrice
 , (CASE InventoryItem.ItemStatus
@@ -78,12 +79,14 @@ select BAccount.CompanyID, BAccount.AcctName, BAccount.AcctCD, 'Customer Pricing
 	where itm.CompanyID =inventoryitem.CompanyID and itm.InventoryID=inventoryitem.InventoryID ) as "Returnable / Cancellable"
 from BAccount, TSPriceGroup, InventoryItem, ARSalesPrice
 where BAccount.CompanyID = 2
+and ARsalesPrice.CompanyID = BAccount.CompanyID
 and ARSalesPrice.CustomerID = BAccount.BAccountID
 and BAccount.CompanyID = TSPriceGroup.CompanyID
 and inventoryitem.CompanyID = BAccount.CompanyID
---and BAccount.AcctCD in ('DIV186550', 'BHP074571')
+--and BAccount.AcctCD in ('KNI499759')
 and InventoryItem.InventoryID = ARSalesPrice.InventoryID
---and InventoryItem.InventoryCD = 'ACC310VWC4'
+--and InventoryItem.InventoryCD = 'SF640'
 and inventoryItem.UsrPriceGroupID = TSPriceGroup.RecID
+and arsalesprice.pricetype = 'C'
 and (arsalesprice.ExpirationDate >= '2024-10-01' or arsalesprice.expirationdate is null)
-and arsalesprice.EffectiveDate = (select max(Z.effectiveDate) from ARSalesPrice Z where Z.CompanyID = ARSalesPrice.CompanyID and Z.InventoryID = ARSalesPrice.InventoryID and Z.CustPriceClassID = arsalesprice.CustPriceClassID)
+and arsalesprice.EffectiveDate = (select max(Z.effectiveDate) from ARSalesPrice Z where Z.CompanyID = ARSalesPrice.CompanyID and Z.InventoryID = ARSalesPrice.InventoryID and arsalesprice.customerID = z.CustomerID)
